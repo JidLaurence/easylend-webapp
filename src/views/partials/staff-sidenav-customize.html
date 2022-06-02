@@ -1,0 +1,213 @@
+<!-- Sidenav -->
+<div class="customize-left-nav bg-white">
+  <center>
+    <img src="../../../assets/img/brand/favicon.png" class="img-fluid" width="30" height="30">   
+    
+    <div class="pt-5">
+              <!-- Nav items -->
+        <ul class="navbar-nav pr-2 pl-2">
+          <li class="nav-item d-xl-none">
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link {{#if dashboard}}active{{/if}} li-customize  li-cz2"
+              href="/staff/dashboard"
+            >
+            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="svg-path" d="M17 19H3C2.44772 19 2 18.5523 2 18V10H0L9.292 0.707013C9.47957 0.519236 9.73409 0.413727 9.9995 0.413727C10.2649 0.413727 10.5194 0.519236 10.707 0.707013L20 10H18V18C18 18.5523 17.5523 19 17 19ZM8 12H12V17H16V8.82801L10 2.82801L4 8.82801V17H8V12Z"/>
+            </svg>  
+            <span class="customize-tooltip">Dashboard</span>  
+            </a>
+          </li>
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link {{#if customer}}active{{/if}} li-customize li-cz2"
+              href="/staff/customer"
+            >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="svg-path" d="M7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8ZM12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z" fill="#2E3A59"/>
+              <path class="svg-path" d="M6.34315 16.3431C4.84285 17.8434 4 19.8783 4 22H6C6 20.4087 6.63214 18.8826 7.75736 17.7574C8.88258 16.6321 10.4087 16 12 16C13.5913 16 15.1174 16.6321 16.2426 17.7574C17.3679 18.8826 18 20.4087 18 22H20C20 19.8783 19.1571 17.8434 17.6569 16.3431C16.1566 14.8429 14.1217 14 12 14C9.87827 14 7.84344 14.8429 6.34315 16.3431Z" fill="#2E3A59"/>
+              </svg>
+              <span class="customize-tooltip">Customer</span>                                         
+            </a>
+          </li>
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link {{#if collect}}active{{/if}} li-customize li-cz2"
+              href="/staff/collect"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-path" d="M19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4H7V2H9V4H15V2H17V4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22ZM5 10V20H19V10H5ZM5 6V8H19V6H5ZM13 18H11V16H9V14H11V12H13V14H15V16H13V18Z" fill="#2E3A59"/>
+              </svg>    
+              <span class="customize-tooltip">Collect</span>  
+            </a>
+          </li>
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link {{#if release}}active{{/if}} li-customize li-cz2"
+              href="/staff/release"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-path" d="M19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4H7V2H9V4H15V2H17V4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22ZM5 10V20H19V10H5ZM5 6V8H19V6H5ZM15 16H9V14H15V16Z" fill="#2E3A59"/>
+              </svg>            
+              <span class="customize-tooltip">Release</span>                        
+            </a>
+          </li>
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link {{#if paid}}active{{/if}} li-customize li-cz2"
+              href="/staff/paid"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-path" d="M19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4H7V2H9V4H15V2H17V4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22ZM5 10V20H19V10H5ZM5 6V8H19V6H5ZM11 18.414L7.293 14.707L8.707 13.293L11 15.586L15.293 11.293L16.707 12.707L11 18.413V18.414Z" fill="#2E3A59"/>
+              </svg>
+              <span class="customize-tooltip">Paid</span>  
+            </a>
+          </li>
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link {{#if reports}}active{{/if}} li-customize li-cz2"
+              href="/staff/reports"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-path" d="M21 21H18V11H21V21ZM16 21H13V8H16V21ZM11 21H8V5H11V21ZM6 21H3V13H6V21Z" fill="#2E3A59"/>
+              </svg>
+              <span class="customize-tooltip">Reports</span>                        
+            </a>
+          </li>
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link {{#if settings}}active{{/if}} li-customize li-cz2"
+              href="/staff/settings"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-path" d="M11.82 20H8.18004C7.71016 20 7.3036 19.673 7.20304 19.214L6.79604 17.33C6.25309 17.0921 5.73827 16.7946 5.26104 16.443L3.42404 17.028C2.97604 17.1709 2.48903 16.9823 2.25404 16.575L0.43004 13.424C0.197628 13.0165 0.277699 12.5025 0.623041 12.185L2.04804 10.885C1.98324 10.2961 1.98324 9.70189 2.04804 9.113L0.623041 7.816C0.27719 7.49837 0.197088 6.98372 0.43004 6.576L2.25004 3.423C2.48503 3.0157 2.97204 2.82714 3.42004 2.97L5.25704 3.555C5.5011 3.37416 5.75517 3.20722 6.01804 3.055C6.27038 2.91269 6.53008 2.78385 6.79604 2.669L7.20404 0.787C7.30411 0.327969 7.71023 0.000494393 8.18004 0H11.82C12.2899 0.000494393 12.696 0.327969 12.796 0.787L13.208 2.67C13.4888 2.79352 13.7623 2.93308 14.027 3.088C14.274 3.23081 14.5127 3.38739 14.742 3.557L16.58 2.972C17.0277 2.82967 17.5142 3.01816 17.749 3.425L19.569 6.578C19.8015 6.98548 19.7214 7.49951 19.376 7.817L17.951 9.117C18.0158 9.70589 18.0158 10.3001 17.951 10.889L19.376 12.189C19.7214 12.5065 19.8015 13.0205 19.569 13.428L17.749 16.581C17.5142 16.9878 17.0277 17.1763 16.58 17.034L14.742 16.449C14.5095 16.6203 14.2678 16.7789 14.018 16.924C13.7559 17.0759 13.4854 17.2131 13.208 17.335L12.796 19.214C12.6956 19.6726 12.2895 19.9996 11.82 20ZM5.62004 14.229L6.44004 14.829C6.62489 14.9652 6.81755 15.0904 7.01704 15.204C7.20474 15.3127 7.39801 15.4115 7.59604 15.5L8.52904 15.909L8.98604 18H11.016L11.473 15.908L12.406 15.499C12.8133 15.3194 13.1999 15.0961 13.559 14.833L14.38 14.233L16.421 14.883L17.436 13.125L15.853 11.682L15.965 10.67C16.0142 10.2274 16.0142 9.78064 15.965 9.338L15.853 8.326L17.437 6.88L16.421 5.121L14.38 5.771L13.559 5.171C13.1998 4.90671 12.8133 4.68175 12.406 4.5L11.473 4.091L11.016 2H8.98604L8.52704 4.092L7.59604 4.5C7.39785 4.58704 7.20456 4.68486 7.01704 4.793C6.81878 4.90633 6.62713 5.03086 6.44304 5.166L5.62204 5.766L3.58204 5.116L2.56504 6.88L4.14804 8.321L4.03604 9.334C3.98684 9.77664 3.98684 10.2234 4.03604 10.666L4.14804 11.678L2.56504 13.121L3.58004 14.879L5.62004 14.229ZM9.99604 14C7.7869 14 5.99604 12.2091 5.99604 10C5.99604 7.79086 7.7869 6 9.99604 6C12.2052 6 13.996 7.79086 13.996 10C13.9933 12.208 12.204 13.9972 9.99604 14ZM9.99604 8C8.90344 8.00111 8.01393 8.87885 7.99827 9.97134C7.98262 11.0638 8.84661 11.9667 9.93873 11.9991C11.0309 12.0315 11.9469 11.1815 11.996 10.09V10.49V10C11.996 8.89543 11.1006 8 9.99604 8Z" fill="#2E3A59"/>
+                </svg>
+                <span class="customize-tooltip">Settings</span>                   
+            </a>
+          </li>
+        
+          <li class="pl-1 pr-1">
+            <hr class="my-3">
+          </li>
+          <li class="nav-item pb-2 nav-customize">
+            <a
+              class="nav-link m-hover li-customize" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="svg-path" d="M12 22C10.8954 22 10 21.1046 10 20H14C14 21.1046 13.1046 22 12 22ZM20 19H4V17L6 16V10.5C6 7.038 7.421 4.793 10 4.18V2H14V4.18C16.579 4.792 18 7.036 18 10.5V16L20 17V19ZM12 5.75C10.7797 5.6712 9.60278 6.21728 8.875 7.2C8.25255 8.18456 7.94714 9.33638 8 10.5V17H16V10.5C16.0528 9.33639 15.7474 8.18458 15.125 7.2C14.3972 6.21728 13.2203 5.6712 12 5.75Z"/>
+              </svg>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right ml-4">
+              <div class="dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Notification!</h6>
+              </div>
+                {{#if credentials.isHired}}
+                {{else}}
+                  {{#each notification}}
+                  {{#each ../company}}
+                  {{#ifStatement this._id ../this.company_id}}
+                  <a href="#!" class="list-group-item list-group-item-action dropdown-item" data-toggle="modal"
+                    data-target="#invite-{{../this._id}}">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <!-- Avatar -->
+                        <!-- {{#each ../../settings}}
+                          {{#ifStatement this.company_id ../this._id}}
+                            <img alt="Image placeholder" src="{{this.company_logo}}" class="avatar rounded-circle" />
+                          {{/ifStatement}}
+                        {{/each}} -->
+                      </div>
+                      <div class="col ml--2">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <h4 class="mb-0 text-sm">{{this.company_name}}</h4>
+                          </div>
+                          <div class="text-right text-muted">
+                            <small>{{relativeTime ../this.createdAt}}</small>
+                          </div>
+                        </div>
+                        <p class="text-sm mb-0">
+                          {{../this.branch}}
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                  {{/ifStatement}}
+                  {{/each}}
+                  {{/each}}
+                {{/if}}
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active active-pro pb-2 m-hover" style="padding-left: 0px !important;background-color: white;"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="{{credentials.profile_img}}" class="img-fluid rounded-circle" width="30" height="30">  
+            </a>
+            <div class="dropdown-menu dropdown-menu-right ml-4">
+              <div class="dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Welcome!</h6>
+              </div>
+              <a href="/staff/profile" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="/logout" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+    </div>
+  </center>
+</div>
+
+{{#if credentials.isHired}}
+{{else}}
+    {{#each notification}}
+    {{#each ../company}}
+    {{#ifStatement this._id ../this.company_id}}
+    <div class="modal fade bd-example-modal-lg" id="invite-{{../this._id}}" tabindex="-1" role="dialog"
+      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body p-5">
+            <center>
+              <form id="{{../this._id}}" action="/staff/validate/company-invite" method="POST">
+                <h3>Are you sure you want to accept their invitition?</h3>
+                <input name="_id" type="text" class="form-control mb-2 mt-1" value="{{../this._id}}" required hidden>
+                <input id="input{{../this._id}}" name="choice" type="text" class="form-control mb-2 mt-1" required hidden>
+                <button type="submit" class="btn btn-primary" id="submit{{../this._id}}" hidden>Submit</button>
+                <div class="row mt-4">
+                  <div class="col-sm-6 mb-2">
+                    <button type="button" class="btn btn-danger w-100" data-dismiss="modal"
+                    onclick="$('#input{{../this._id}}').val('true');Swal.fire({title: 'Are you sure do you want to declined this invitation?',showDenyButton: false,showCancelButton: true,icon: 'warning',confirmButtonText: 'Delete',confirmButtonColor: '#d33',}).then((result) => {if (result.isConfirmed) {$('#input{{../this._id}}').val('false'); $('#submit{{../this._id}}').trigger('click');} else {$('#input{{../this._id}}').val('');}})">Declined</button>
+                  </div>
+                  <div class="col-sm-6 mb-2">
+                    <button type="button" class="btn btn-primary w-100" data-dismiss="modal"
+                    onclick="$('#input{{../this._id}}').val('true');Swal.fire({title: 'Are you sure do you want to accept this invitation?',showDenyButton: false,showCancelButton: true,icon: 'warning',confirmButtonText: 'Accept',confirmButtonColor: '#5cb85c',}).then((result) => {if (result.isConfirmed) {$('#input{{../this._id}}').val('true'); $('#submit{{../this._id}}').trigger('click');} else {$('#input{{../this._id}}').val('');}})">Accept</button>
+                  </div>
+                </div>
+                </form>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/ifStatement}}
+    {{/each}}
+    {{/each}}
+  {{/if}}
+
+<script>
+  $('.li-customize').hover(
+  function(){ 
+    $(".li-customize.active").addClass('inactive').removeClass('active');
+  },
+  function(){ 
+    $(".li-customize.inactive").addClass('active').removeClass('inactive'); 
+  }
+);
+</script>

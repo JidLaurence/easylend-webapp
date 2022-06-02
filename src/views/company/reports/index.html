@@ -1,0 +1,474 @@
+{{> company-sidenav-customize reports=true}}
+<div class="main-content pl-5" id="panel">
+
+  <!-- Page content -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <!--SPACE FOR FUTURE HEADERS-->
+        </div>
+        <!-- Card stats -->
+        <div class="row">
+          <div class="col-xl-2 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Released
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{comma released.total}}</span>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-single-02 mr-2"></i>{{released.cnt}} collector</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Borrowed money
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0 text-danger">{{comma borrowed.capital}}</span>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2" data-toggle="tooltip" data-placement="bottom" title="Capital with {{companySettings.interest}}% interest"
+                    ><i class="ni ni-single-02 mr-2"></i>{{comma borrowed.capital_total}}</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Collected
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0 text-success">{{comma collected.total}}</span>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-single-02 mr-2"></i>{{collected.cnt}} Customer</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Balance
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0 text-danger">{{comma balance.total}}</span>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-single-02 mr-2"></i>{{balance.cnt}} Customer</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Lost
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0 text-danger">{{subtract released.total collected.total}}</span>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-single-02 mr-2"></i>Customer</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Accepted
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{checkZero customerCnt}}</span>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-single-02 mr-2"></i>Customer</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+      <!--SEARCH-->
+  <form action="/company/reports/search" method="GET">
+    <div class="row">
+      <div class="col-sm-2 pb-2">
+        <select id="myStaff" name="staff_id" class="custom-select" required data-toggle="tooltip" data-placement="top" title="Select Staff">
+          <option value="">Select Staff </option>
+          <option value="0">All Staff</option>
+          {{#each myStaff}}
+            <option value="{{this.staff_id._id}}">{{this.staff_id.firstname}} {{this.staff_id.lastname}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="col-sm-2 pb-2">
+        <select id="myBranch" name="branch_id" class="custom-select" required data-toggle="tooltip" data-placement="top" title="Select Branch">
+          <option value="">Select branch </option>
+          <option value="0">All Branch</option>
+        </select>
+      </div>
+      <div class="col-sm-2 pb-2">
+        <select id="myCollector" name="collector_id" class="custom-select" required data-toggle="tooltip" data-placement="top" title="Select Collector">
+          <option value="">Select Collector </option>
+          <option value="0">All Collector</option>
+        </select>
+      </div>
+      
+      <div class="col-sm-1 pb-2">
+        <input class="form-control" type="text" name="startDate" placeholder="Start Date" onfocus="(this.type='date')" value="{{displayStartDate}}" required data-toggle="tooltip" data-placement="top" title="Start Date"/>
+      </div>
+      <div class="col-sm-1 pb-2">
+        <input class="form-control" type="text" name="endDate" placeholder="End Date" onfocus="(this.type='date')" value="{{displayEndDate}}" required data-toggle="tooltip" data-placement="top" title="End Date"/>
+      </div>
+      <div class="col-sm-2 pb-2">
+        <select id="year" name="year" class="custom-select" required data-toggle="tooltip" data-placement="top" title="Select Year">
+          <option value="">Select Year</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2024">2024</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-light" style="width: 100%;">Search</button>
+      </div>
+    </div>
+  </form>
+    <div class="row">
+      <div class="col-xl-8 pb-2">
+        <div class="bg-white p-4 rounded" style="width: 100%;height: 100%;">
+          <span class="h4 font-weight-bold mb-0">Year {{getYY}}</span>
+          <input id="col1" type="text" value="{{releasedByMonth.jan}}" hidden>
+          <input id="col2" type="text" value="{{releasedByMonth.feb}}" hidden>
+          <input id="col3" type="text" value="{{releasedByMonth.mar}}" hidden>
+          <input id="col4" type="text" value="{{releasedByMonth.apr}}" hidden>
+          <input id="col5" type="text" value="{{releasedByMonth.may}}" hidden>
+          <input id="col6" type="text" value="{{releasedByMonth.june}}" hidden>
+          <input id="col7" type="text" value="{{releasedByMonth.july}}" hidden>
+          <input id="col8" type="text" value="{{releasedByMonth.aug}}" hidden>
+          <input id="col9" type="text" value="{{releasedByMonth.sep}}" hidden>
+          <input id="col10" type="text" value="{{releasedByMonth.oct}}" hidden>
+          <input id="col11" type="text" value="{{releasedByMonth.nov}}" hidden>
+          <input id="col12" type="text" value="{{releasedByMonth.dec}}" hidden>
+
+          <input id="col1R" type="text" value="{{collectedByMonth.jan}}" hidden>
+          <input id="col2R" type="text" value="{{collectedByMonth.feb}}" hidden>
+          <input id="col3R" type="text" value="{{collectedByMonth.mar}}" hidden>
+          <input id="col4R" type="text" value="{{collectedByMonth.apr}}" hidden>
+          <input id="col5R" type="text" value="{{collectedByMonth.may}}" hidden>
+          <input id="col6R" type="text" value="{{collectedByMonth.june}}" hidden>
+          <input id="col7R" type="text" value="{{collectedByMonth.july}}" hidden>
+          <input id="col8R" type="text" value="{{collectedByMonth.aug}}" hidden>
+          <input id="col9R" type="text" value="{{collectedByMonth.sep}}" hidden>
+          <input id="col10R" type="text" value="{{collectedByMonth.oct}}" hidden>
+          <input id="col11R" type="text" value="{{collectedByMonth.nov}}" hidden>
+          <input id="col12R" type="text" value="{{collectedByMonth.dec}}" hidden>
+          <div>
+            <canvas id="calendarChart"></canvas>
+          </div>
+          <div class="row mb-0 pb-0">
+            <div class="col-sm-12 text-right pt-3 pb-0 mb-0">
+              <div class="col pb-0 mb-0">
+                <!-- <small class="text-muted">This is your year transaction</small> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-4 pb-2">
+        <div class="bg-white p-4 rounded mb-4">
+          <h5 class="h4 font-weight-bold mb-2">Selected</h5>
+          <p class="h5 mb-1"><b>Staff:</b> {{selectedStaff}}</p>
+          <p class="h5 mb-1"><b>Branch:</b> {{selectedBranch}}</p>
+          <p class="h5 mb-1"><b>Collector:</b> {{selectedCollector}}</p>
+          <p class="h5 mb-1"><b>Date started:</b> {{selectedDateStarted}}</p>
+          <p class="h5 mb-1"><b>Date end:</b> {{selectedDateEnd}}</p>
+          <p class="h5 mb-1"><b>Year:</b> {{selectedYear}}</p>
+      </div>
+        <div class="bg-white p-4 rounded" style="width: 100%;">
+            <span class="h4 font-weight-bold mb-0">Overall</span>
+            <input id="getCollectedTotal" type="text" value="{{collected.total}}" hidden>
+            <input id="getReleasedTotal" type="text" value="{{released.total}}" hidden>
+            <div>
+              <canvas id="pieChart"></canvas>
+            </div>
+            <div class="row mb-0 pb-0">
+              <div class="col-sm-12 text-right pt-5 pb-0 mb-0">
+                <div class="col pb-0 mb-0">
+                  <!-- <small class="text-muted">This is your overall transaction</small> -->
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer pt-0">
+      <div class="row align-items-center justify-content-lg-between">
+        <div class="col-lg-6">
+          <div class="copyright text-center  text-lg-left  text-muted">
+            &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- CALENDAR -->
+<script>
+  const labels = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Collected',
+      backgroundColor: '#57B894',
+      borderColor: '#57B894',
+      data: [$('#col1').val(), $('#col2').val(), $('#col3').val(), $('#col4').val(), $('#col5').val(), $('#col6').val(), $('#col7').val(), $('#col8').val(), $('#col9').val(), $('#col10').val(), $('#col11').val(), $('#col12').val()],
+    },
+    {
+      label: 'Released',
+      backgroundColor: 'rgb(220, 53, 69)',
+      borderColor: 'rgb(220, 53, 69)',
+      data: [$('#col1R').val(), $('#col2R').val(), $('#col3R').val(), $('#col4R').val(), $('#col5R').val(), $('#col6R').val(), $('#col7R').val(), $('#col8R').val(), $('#col9R').val(), $('#col10R').val(), $('#col11R').val(), $('#col12R').val()],
+    }]
+  };
+  const config = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('calendarChart'),
+    config
+  );
+</script>
+<!-- PIE CHART -->
+<script>
+  var released = parseInt(document.getElementById("getReleasedTotal").value);
+  var collected = parseInt(document.getElementById("getCollectedTotal").value);
+
+  const dataPie = {
+    labels: [
+      'Collected',
+      'Released'
+    ],
+    datasets: [{
+      label: 'Overall',
+      data: [collected, released],
+      backgroundColor: [
+        '#57B894',
+        '#F07470'
+      ],
+      hoverOffset: 4
+    }]
+  };
+  const configPie = {
+    type: 'pie',
+    data: dataPie,
+  };
+</script>
+<script>
+  const myChartPie = new Chart(
+    document.getElementById('pieChart'),
+    configPie
+  );
+</script>
+
+
+<!--GET STAFF API-->
+<script>
+  $(function () {
+     $('#myStaff').on('change', function () {
+
+     if (this.value != '' || this.value != 'all' || this.val != null) {
+       $.ajax({
+         url: '{{baseURL}}/getBranch/' + this.value,
+         type: 'GET',
+         success: function (result) {
+           $('#myBranch')
+             .find('option')
+             .remove()
+             .end()
+             .append(
+               $('<option>', {
+                 value: '0',
+                 text: 'All Branch',
+               })
+             );
+
+           Array.prototype.forEach.call(result, (data) => {
+             $('#myBranch').append(
+               $('<option>', {
+                 value: data._id,
+                 text: data.name,
+               })
+             );
+           });
+           $('#myBranch').val('{{data._id}}').change();
+         },
+       }).fail(function (res) {
+         $.confirm({
+           title: 'Encountered an error!',
+           content: 'Please check your internet connection!',
+           type: 'red',
+           typeAnimated: true,
+           buttons: {
+             close: function () {},
+           },
+         });
+       });
+     }else {
+       $('#myBranch')
+         .find('option')
+         .remove()
+         .end()
+         .append(
+           $('<option>', {
+             value: '',
+             text: 'Select Branch',
+           })
+         );
+     }
+   });
+  });
+</script>
+
+<!--GET COLLECTOR API-->
+<script>
+  $(function () {
+     $('#myBranch').on('change', function () {
+
+      if(this.value == '' || this.value == null) {
+       $('#myCollector')
+         .find('option')
+         .remove()
+         .end()
+         .append(
+           $('<option>', {
+             value: '',
+             text: 'Select Collector',
+           })
+         );
+     }else if (this.value != '' || this.value != 'all' || this.val != null) {
+       $.ajax({
+         url: '{{baseURL}}/getCollector/' + this.value,
+         type: 'GET',
+         success: function (result) {
+           $('#myCollector')
+             .find('option')
+             .remove()
+             .end()
+             .append(
+               $('<option>', {
+                 value: '0',
+                 text: 'All Collector',
+               })
+             );
+
+           Array.prototype.forEach.call(result, (data) => {
+             $('#myCollector').append(
+               $('<option>', {
+                 value: data.collector_id,
+                 text: data.fullname
+               })
+             );
+           });
+
+           $('#myCollector').val('{{data.collector_id}}').change();
+         },
+       }).fail(function (res) {
+         $.confirm({
+           title: 'Encountered an error!',
+           content: 'Please check your internet connection!',
+           type: 'red',
+           typeAnimated: true,
+           buttons: {
+             close: function () {},
+           },
+         });
+       });
+     }else {
+       $('#myCollector')
+         .find('option')
+         .remove()
+         .end()
+         .append(
+           $('<option>', {
+             value: '',
+             text: 'Select Collector',
+           })
+         );
+     }
+   });
+  });
+</script>

@@ -1,0 +1,409 @@
+<div class="custome-background-all">
+  <!--LEFT NAV-->
+  {{> company-sidenav-customize payed=true}}
+  <div class="main-content pl-5" id="panel">
+  
+    <!--TOP NAV-->
+    
+    <!-- Page content -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid pt-4">
+        <form action="/company/paid/search" method="GET">
+          <div class="row align-items-center pr-3 pl-3">
+            <div class="col-md-2 mb-2">
+              <span class="f-15 text-white">&nbsp;</span>
+              <input type="text" id="searchCustomer" class="form-control" placeholder="Search name.." onkeyup="myFunction()">
+           </div>
+            <div class="col-md-2 mb-2 p-1">
+              <span class="f-15 text-white">Select branch</span>
+              <select name="branch_id" id="myBranch" class="custom-select" required>
+                  <option value="{{displayBranch._id}}" hidden selected>{{displayBranch.name}}</option>
+                  {{#each myBranches}}
+                      {{#each ../branches}}
+                        {{#ifStatement this._id ../this.branch_id}}
+                          <option value="{{this._id}}">{{this.name}}</option>
+                        {{/ifStatement}}
+                      {{/each}}
+                  {{/each}}
+                </select>
+            </div>
+            <div class="col-md-1 mb-2 p-1">
+                <span class="f-15 text-white">Start</span>
+                <input name="startDate" type="date" class="form-control" data-toggle="tooltip" data-placement="top" title="Date Accepted">
+            </div>
+            <div class="col-md-1 mb-2 p-1">
+              <span class="f-15 text-white">End</span>
+              <input name="endDate" type="date" class="form-control"  data-toggle="tooltip" data-placement="top" title="Date Accepted">
+            </div>
+            <div class="col-md-2 mb-2 p-1">
+              <span class="f-15 text-white">Select collector</span>
+              <select name="collector_id" id="myCollector" class="custom-select" required>
+                  <option value="{{displayCollector._id}}" selected>{{toUpper displayCollector.firstname}} {{middleInitials displayCollector.middlename}} {{toUpper displayCollector.lastname}}</option>
+              </select>
+            </div>
+            <div class="col-md-1 mb-2 p-1">
+              <span class="f-15 text-white">Select month</span>
+                <select name="month" class="custom-select" required data-toggle="tooltip" data-placement="top" title="Calendar">
+                  <option value="{{getMM}}" hidden selected>{{convertMonth getMM}}</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+            </div>
+            <div class="col-md-1 mb-2 p-1">
+              <span class="f-15 text-white">Select year</span>
+              <select name="year" class="custom-select" required data-toggle="tooltip" data-placement="top" title="Calendar">
+                <option value="{{getYY}}" hidden selected>{{getYY}}</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+              </select>
+            </div>
+            <div class="col-md-2 mb-2 p-1">
+              <span class="f-15 text-white">&nbsp;</span>
+              <button type="submit" class="btn btn-outline-light" style="width: 100%;">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <!-- ACCTIVE USERS -->
+      <div class="row" id="active-users-tab">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col mb-2">
+                  <h3 class="mb-0">Paid Customer</h3>
+                </div>
+                <div class="col-sm-4 text-right pr-5">
+                  <h3>{{get_customer.cnt}}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive pb-1">
+              <!-- Projects table -->
+              <table class="table align-items-center table-bordered" id="calendar_table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date Started</th>
+                    <th scope="col">Date End</th>
+                    <th scope="col">Date Payed</th>
+                    <th scope="col" class="text-warning">Interest</th>
+                    <th scope="col" class="text-warning">Borrowed</th>
+                    <th scope="col" class="text-warning">Capital</th>
+                    <th scope="col" class="text-warning">Payed</th>
+                    {{#each calendars}}
+                      {{#each this.calendars}}
+                        <th scope="col" class="color: {{styleWeek this.ww}}">{{displayWeek this.dd this.ww}}</th>
+                      {{/each}}
+                    {{/each}}
+                    <th>Total</th>
+                    <!-- <th><li class="ni ni-settings"></li></th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each customers}}
+                    {{#each ../customers_info}}
+                    {{#ifStatement this._id ../this.customer_id}}
+                          <tr>
+                            <td scope="row">{{toUpper this.firstname}} {{middleInitials this.middlename}} {{toUpper this.lastname}}</td>
+                            <td >{{convertDate ../this.date_accepted 'MMM DD, YYYY'}}</td>
+                            <td >{{convertDate ../this.date_end  'MMM DD, YYYY'}}</td>
+                            <td >{{convertDate ../this.date_payed  'MMM DD, YYYY'}}</td>
+                            <td class="text-warning">{{../this.interest}}%</td>
+                            <td class="inputPayed text-warning">{{comma ../this.capital}}</td>
+                            <td class="inputPayed text-warning">{{comma ../this.capital_total}}</td>
+                            <td class="inputPayed text-warning text-center">{{comma ../this.total_payed}}</td>
+                                {{#each ../../calendars}}
+                                {{#each this.calendars}}
+
+                                  <td class="inputPayed p-0" style="background-color: #F1F3F8;" >
+                                        {{#each ../../../../collect_dates}}
+                                         
+                                          {{#ifStatement this.customersDB_id ../../../../this._id}}
+
+                                          {{#each this.dates}}
+                                              {{#compareDates this.dd this.mm this.yy ../../this.dd ../../this.mm ../../this.yy}}
+                                              <!-- VALUE HERE -->
+                                                <div class="pt-3 pb-3 text-center customize-th" data-toggle="modal" onclick="$('#collect-{{../../../../../this._id}}-{{this.dd}}-{{this.mm}}-{{this.yy}}').modal()">
+                                                  {{#each ../../../../../../collects}}
+                                                    {{#ifStatement this.customersDB_id ../../customersDB_id}} 
+                                                      <!-- COMPARE COLLECT TO CUSTOMERS AND COLLECT DATES JED -->
+                                                     {{#compareDates this.day this.month this.year ../../../this.dd ../../../this.mm ../../../this.yy}}
+                                                        {{comma this.amount}} <!-- AMOUNT -->   
+                                                     {{/compareDates}}
+                                                    {{/ifStatement}}
+                                                  {{/each}}    
+                                                    &nbsp;
+                                                </div>
+                                              {{/compareDates}}
+                                          {{/each}}       
+
+                                          {{/ifStatement}}
+                                         
+                                        {{/each}}
+                                    </td>
+                                {{/each}}
+                                {{/each}}
+                            <!-- <td><li class="ni ni-ui-04"></li></td> -->
+                            <td id="totalPayed" data-toggle="tooltip" data-placement="left" title="Total of this month"></td>
+                          </tr>
+                        {{/ifStatement}}
+                    {{/each}}
+                  {{/each}}
+                  <tr id="sumPerDay">
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 text-right">
+          <button class="btn btn-secondary" onclick="ExportToExcel('xlsx')" data-toggle="tooltip" data-placement="bottom" title="Export table into excel">Excel</button>
+          <button class="btn btn-secondary" onclick="myApp.printTable()" data-toggle="tooltip" data-placement="bottom" title="Print this table">Print</button>
+        </div>
+      </div>
+  
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              Powered by <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a> &copy; 2021
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+  </div>  
+  
+</div>
+
+<!-- MODAL ADD COMPANY -->
+<div class="modal fade" id="add-company" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pb-0 pt-0">
+        <input name="code" type="text" class="form-control mb-2" placeholder="Code">
+        <span class="f-12 f-gray">input company code</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--ADD AND UPDATE COLLECT-->
+{{#each customers}}
+{{#each ../customers_info}}
+{{#ifStatement this._id ../this.customer_id}}
+
+            {{#each ../../calendars}}
+            {{#each this.calendars}}
+
+                    {{#each ../../../../collect_dates}}
+                     
+                      {{#ifStatement this.customersDB_id ../../../../this._id}}
+
+                      {{#each this.dates}}
+                          {{#compareDates this.dd this.mm this.yy ../../this.dd ../../this.mm ../../this.yy}}
+                            <!-- MODAL HERE -->
+                            <div class="modal fade bd-example-modal-lg" id="collect-{{../../../../../this._id}}-{{this.dd}}-{{this.mm}}-{{this.yy}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="myLargeModalLabel">Selected Customer</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                      <div class="modal-body pb-0 pt-0">
+                                        <div class="row">
+                                          <div class="col-sm-12">
+                                            <span class="f-15 f-gray-d ml-1">Customer name</span>
+                                            <input type="text" class="form-control mb-2 mt-1" value="{{toUpper ../../../../this.firstname}} {{middleInitials ../../../../this.middlename}} {{toUpper ../../../../this.lastname}}" disabled>
+                                          </div>
+                                          <div class="col-sm-12">
+                                            <span class="f-15 f-gray-d ml-1">Date</span>
+                                            <input type="text" class="form-control mb-2 mt-1" value="{{convertMonth this.mm}} {{this.dd}}, {{this.yy}}" disabled>
+                                          </div>
+                                          <div class="col-sm-12">
+                                            <span class="f-15 f-gray-d ml-1">{{convertMode ../../../../../this.type}}</span>
+                                            <input type="text" class="form-control mb-2 mt-1" value="{{../../../../../this.collect}}" disabled>
+                                          </div>
+                                          <div class="col-sm-12">
+                                            <span class="f-15 f-gray-d ml-1">Amount</span>
+                                            <input type="number" class="form-control mb-2 mt-1" disabled value="{{#each ../../../../../../collects}}{{#ifStatement this.customersDB_id ../../customersDB_id}}{{#compareDates this.day this.month this.year ../../../this.dd ../../../this.mm ../../../this.yy}}{{this.amount}}{{/compareDates}}{{/ifStatement}}{{/each}}" required>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          {{/compareDates}}
+                      {{/each}}       
+
+                      {{/ifStatement}}
+                     
+                    {{/each}}
+
+            {{/each}}
+            {{/each}}
+            
+    {{/ifStatement}}
+{{/each}}
+{{/each}}
+<!-- SCRIPT -->
+<!-- DISPLAY TOTAL PER DAY,MONTH AND YEAR -->
+<script>
+  $(document).ready(function() {
+    let totalRow = [];
+    var trCnt = 0;
+    let tdCnt =0;
+    var tdlength=0;
+    $('tr').each(function() {
+        var total = 0;
+        totalRow[trCnt] = [];
+        $(this).find('.inputPayed').each(function() {
+            var sub = parseFloat($(this).text().replace(/,/g, ''));
+            if(!isNaN(sub)){
+              if(tdCnt>2){
+                total+= parseFloat(sub);
+              }
+              //assign multidimensional array per day;
+              totalRow[trCnt][tdCnt] = parseFloat(sub);
+            }else{
+              //if td is empty set zero
+              totalRow[trCnt][tdCnt] = parseFloat(0);
+            }
+            tdCnt++;
+            tdlength=tdCnt;
+        });
+        //display this month payed
+        $(this).find('#totalPayed').html(comma(total));
+        //display sum of this month
+        totalRow[trCnt][tdCnt]=total;
+        tdCnt=0;
+        trCnt++;
+    });
+    //from 2D array into 1D array
+    var totalPayed = [];
+    for(var i=0;i<totalRow.length;i++){
+      for(var x=0;x<totalRow[i].length; x++){
+        for(var j=0;j<totalRow[i].length;j++){
+          if(isNaN(totalPayed[j])){
+            //set zero if 1D array is empty
+            totalPayed[j]=0
+          }else{
+            if(j==x){
+              //add per index
+              totalPayed[j]= parseInt(totalPayed[j]) + parseInt(totalRow[i][j]);
+            }
+          }
+        }
+      }
+    }
+    //append td in table for space
+    $("#sumPerDay").append('<td></td><td></td><td></td><td></td><td></td>');
+    //append td per days
+    for(var i=0;i<totalPayed.length;i++){
+      if(totalPayed[i]==0){
+        $("#sumPerDay").append('<td></td>');
+      }else{
+        //display 1D array
+        $("#sumPerDay").append('<td>'+comma(totalPayed[i])+'</td>');
+      }
+    };
+     //recirsive function comma for totalPayed
+     function comma(data) {
+        data = parseFloat(data);
+        data = data.toFixed(2);
+        return data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+      };
+    })
+</script>
+
+
+<!--GET COLLECTOR-->
+<script>
+   $(function () {
+      $('#myBranch').on('change', function () {
+      if (this.value !== '') {
+        $.ajax({
+          url: '{{baseURL}}/getCollector/' + this.value,
+          type: 'GET',
+          success: function (result) {
+            $('#myCollector')
+              .find('option')
+              .remove()
+              .end()
+              .append(
+                $('<option>', {
+                  value: '',
+                  text: '',
+                })
+              );
+
+            Array.prototype.forEach.call(result, (data) => {
+              $('#myCollector').append(
+                $('<option>', {
+                  value: data.collector_id,
+                  text: data.fullname,
+                })
+              );
+            });
+
+            $('#myCollector').val('{{data.collector_id}}').change();
+          },
+        }).fail(function (res) {
+          $.confirm({
+            title: 'Encountered an error!',
+            content: 'Please check your internet connection!',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {
+              close: function () {},
+            },
+          });
+        });
+      } else {
+        $('#myCollector')
+          .find('option')
+          .remove()
+          .end()
+          .append(
+            $('<option>', {
+              value: '',
+              text: '',
+            })
+          );
+      }
+    });
+   });
+</script>
+

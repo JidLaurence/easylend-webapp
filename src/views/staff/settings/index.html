@@ -1,0 +1,334 @@
+<div class="custome-background-all">
+  {{> staff-sidenav-customize settings=true}}
+  <div class="main-content pl-5" id="panel">
+    <!-- Page content -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <!-- <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                  <li class="breadcrumb-item"><a href="#">Company</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--3">
+      <div class="row" id="active-users-tab">
+         <!--BRANCH-->
+         <div class="col-xl-3">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col mb-2">
+                  <h3 class="mb-0">Capital range</h3>
+                </div>
+                <div class="col-sm-4 text-right">
+                  <div class="col">
+                    <button class="btn btn-primary rounded-circle text-white p-2" type="button" data-toggle="modal" data-target="#add-capital"><i class="ni ni-fat-add"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-hover display" id="staff_sortable">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each capitals}}
+                    <tr class="m-hover" data-toggle="modal" onclick="$('#{{this._id}}-update-capital').modal()">
+                      <th scope="row">
+                        {{comma this.value}}
+                      </th>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <!--COLLECTOR-->
+        <div class="col-xl-7">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col mb-2">
+                  <h3 class="mb-0">Collector</h3>
+                </div>
+                <div class="col-sm-4 text-right">
+                  <div class="col">
+                    <button class="btn btn-primary rounded-circle p-2" type="button"  data-toggle="modal" data-target="#add-collector"><i class="ni ni-fat-add"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Contact Number</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                  {{#each collectorsDB}}
+                  {{#each ../collector_info}}
+                    {{#ifStatement this._id ../this.collector_id}}
+                    <tr class="m-hover" data-toggle="modal" onclick="$('#{{../this._id}}-update-collector').modal()">
+                      <th scope="row">
+                        {{toUpper this.firstname}} {{middleInitials this.middlename}} {{toUpper this.lastname}} 
+                      </th>
+                      <td>
+                        {{this.email}}
+                        <!-- {{convertDate ../this.createdAt 'MMMM'}} {{convertDate ../this.createdAt 'DD'}} {{convertDate ../this.createdAt 'YYYY'}} -->
+                        <!-- {{convertWeek ../this.createdAt}} -->
+                      </td>
+                      <td>
+                        {{this.phone_number}}
+                         <!-- {{../this.createdAt}} -->
+                      </td>
+                      <td>
+                        {{#each ../../branches}}
+                          {{#ifStatement this._id ../../this.branch_id}}
+                            {{this.name}}
+                          {{/ifStatement}}
+                        {{/each}}
+                      </td>
+                      <td class="fw-bold {{#if this.isHired}}text-success{{else}}{{#if ../this.isCancel}}text-danger{{else}}text-primary{{/if}}{{/if}}">
+                        {{#if this.isHired}}Accepted{{else}}{{#if ../this.isCancel}}Declined{{else}}Pending{{/if}}{{/if}}
+                      </td>
+                    </tr>
+                    {{/ifStatement}}
+                  {{/each}}
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>  
+</div>
+<!-- Modal ADD CAPITAL-->
+<div class="modal fade bd-example-modal-lg" id="add-capital" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Add Capital</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/staff/settings/add-capital" method="POST">
+        <div class="modal-body pb-0 pt-0">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="f-15 f-gray-d ml-1">Value</span>
+                  <input name="value" type="number" class="form-control mb-2 mt-1" required>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!-- Modal UPDATE CAPITAL-->
+{{#each capitals}}
+<div class="modal fade bd-example-modal-lg" id="{{this._id}}-update-capital" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Update Capital</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="{{this._id}}" action="/staff/settings/update-capital" method="POST">
+        <input name="_id" type="text" class="form-control mb-2 mt-1" value="{{this._id}}" hidden>
+        <div class="modal-body pb-0 pt-0">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="f-15 f-gray-d ml-1">Value</span>
+                  <input name="value" type="number" class="form-control mb-2 mt-1" value="{{this.value}}" required>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <input type="text" name="isVoid" id="input{{this._id}}" value="{{this.isVoid}}" required hidden/>
+          <input type="button" class="btn btn-danger" data-dismiss="modal" onclick="$('#input{{this._id}}').val('true');Swal.fire({title: 'Do you want to delete this capital?',showDenyButton: false,showCancelButton: true,icon: 'warning',confirmButtonText: 'Delete',confirmButtonColor: '#d33',}).then((result) => {if (result.isConfirmed) {$('#submit{{this._id}}').trigger('click');} else {$('#input{{this._id}}').val('false');}})" value="Delete"/>
+          <button type="submit" class="btn btn-primary" id="submit{{this._id}}">Submit</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+{{/each}}
+
+<!-- Modal ADD COLLECTOR-->
+<div class="modal fade bd-example-modal-lg" id="add-collector" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Add Collector</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/staff/settings/add-collector" method="POST">
+        <div class="modal-body pb-0 pt-0">
+            <div class="row">
+              <div class="col-sm-12">
+                <span class="f-15 f-gray-d ml-1">Email</span>
+                  <input name="email" type="text" class="form-control mb-2 mt-1" required pattern=".+@gmail.com">
+              </div>
+              <div class="col-sm-12">
+                <span class="f-15 f-gray-d ml-1">Select Branch</span>
+                <select name="branch_id" class="custom-select" required>
+                  <option value="" selected> </option>
+                  {{#each myBranches}}
+                    {{#each ../branches}}
+                      {{#ifStatement this._id ../this.branch_id}}
+                        <option value="{{this._id}}">{{this.name}}</option>
+                        {{/ifStatement}}
+                      {{/each}}
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+ <!-- Modal UPDATE COLLECTOR-->
+ {{#each collectorsDB}}
+ {{#each ../collector_info}}
+   {{#ifStatement this._id ../this.collector_id}}
+    <div class="modal fade bd-example-modal-lg" id="{{../this._id}}-update-collector" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myLargeModalLabel">Update Collector</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id="{{../this._id}}" action="/staff/settings/update-collector" method="POST">
+            <div class="modal-body pb-0 pt-0">
+            <input name="_id" type="text" class="form-control mb-2 mt-1" value="{{../this._id}}" required hidden>
+            <input name="user_id" type="text" class="form-control mb-2 mt-1" value="{{this._id}}" required hidden>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <span class="f-15 f-gray-d ml-1">Full name</span>
+                    <input type="text" class="form-control mb-2 mt-1" value="{{toUpper this.firstname}} {{middleInitials this.middlename}} {{toUpper this.lastname}}" disabled>
+                  </div>
+                  <div class="col-sm-6">
+                    <span class="f-15 f-gray-d ml-1">Email</span>
+                    <input type="text" class="form-control mb-2 mt-1" value="{{this.email}}" disabled>
+                  </div>
+                  <div class="col-sm-6">
+                    <span class="f-15 f-gray-d ml-1">Address</span>
+                    <input type="text" class="form-control mb-2 mt-1" value="{{toUpper this.address}}" disabled>
+                  </div>
+                  <div class="col-sm-6">
+                    <span class="f-15 f-gray-d ml-1">Contact number</span>
+                    <input type="text" class="form-control mb-2 mt-1" value="{{this.phone_number}}" disabled>
+                  </div>
+                  <div class="col-sm-6">
+                    <span class="f-15 f-gray-d ml-1">Status</span>
+                    <input type="text" class="form-control mb-2 mt-1 {{#if this.isHired}}text-success{{else}}{{#if ../this.isCancel}}text-danger{{else}}text-primary{{/if}}{{/if}} fw-bold" value="{{#if this.isHired}}Accepted{{else}}{{#if ../this.isCancel}}Declined{{else}}Pending{{/if}}{{/if}}" disabled>
+                  </div>
+                  <div class="col-sm-6">
+                    <span class="f-15 f-gray-d ml-1">Branch</span>
+                    <input name="old_branch" type="text" value="{{#each ../../branches}}{{#ifStatement this._id ../../this.branch_id}}{{this._id}}{{/ifStatement}}{{/each}}" hidden>
+                    <select name="branch_id" class="custom-select" required>
+                      <option value="{{#each ../../branches}}{{#ifStatement this._id ../../this.branch_id}}{{this._id}}{{/ifStatement}}{{/each}}" selected hidden>{{#each ../../branches}}{{#ifStatement this._id ../../this.branch_id}}{{this.name}}{{/ifStatement}}{{/each}}</option>
+                      {{#each ../../myBranches}}
+                        {{#each ../../../branches}}
+                          {{#ifStatement this._id ../this.branch_id}}
+                            <option value="{{this._id}}">{{this.name}}</option>
+                          {{/ifStatement}}
+                        {{/each}}
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <input type="text" name="isVoid" id="input{{../this._id}}" value="{{../this.isVoid}}" required hidden/>
+              <!-- <input type="button" class="btn btn-danger" data-dismiss="modal" onclick="$('#input{{../this._id}}').val('true');Swal.fire({title: 'Do you want to delete this Collector?',showDenyButton: false,showCancelButton: true,icon: 'warning',confirmButtonText: 'Delete',confirmButtonColor: '#d33',}).then((result) => {if (result.isConfirmed) {$('#submit{{../this._id}}').trigger('click');}})" value="Delete"/> -->
+              <button type="submit" class="btn btn-primary" id="submit{{../this._id}}">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {{/ifStatement}}
+  {{/each}}
+{{/each}}
+<!--END OF MODAL -->
+<script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+  });
+</script>
+
+<script>
+  $(document).ready( function () {
+    $('#staff_sortable').DataTable({
+      paging: false,
+      searching: false
+    });
+} );
+</script>
+<script type="text/javascript">
+  $('#inputYear').keypress(function(e) {
+      var arr = [];
+      var kk = e.which;
+   
+      for (i = 48; i < 58; i++)
+          arr.push(i);
+   
+      if (!(arr.indexOf(kk)>=0))
+          e.preventDefault();
+  });
+</script>

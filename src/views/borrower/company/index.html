@@ -1,0 +1,266 @@
+<div class="custome-background-all">
+  {{> borrower-sidenav company=true}}
+  <div class="main-content" id="panel">
+
+    {{> borrower-topnav}}
+    <!-- Page content -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-8 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Company List</h6>
+            </div>
+            <div class="col-lg-4 col-5 text-right">
+                <!-- Search form -->
+                <form  class="navbar-search navbar-search-light" id="navbar-search-main" method="GET" action="/borrower/company/search">
+                  <div class="form-group mb-0">
+                    <div class="input-group input-group-alternative input-group-merge">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                      </div>
+                      <input name="company_name" class="form-control" placeholder="Search company" type="text">
+                    </div>
+                  </div>
+                  <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </form>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Page content -->
+    <!-- <div class="container-fluid mt--6">
+      <div class="row">
+        {{#each company_branch}}
+          {{#each ../company_info}}
+            {{#ifStatement this._id ../this.company_id}}
+              <div class="col-sm-4 mb-3">
+                  <div class="custome-owner-cards br-5 p-4 m-hover" data-toggle="modal" onclick="$('#{{../this._id}}-company-info').modal()">
+                    <h4 class="text-right">{{#each ../../company_settings}}{{#ifStatement this.company_id ../this._id}}{{this.interest}}{{/ifStatement}}{{/each}}%</h4>
+                    <img class="img-fluid owner-logo mb-3 rounded-circle" src="{{#each ../../company_settings}}{{#ifStatement this.company_id ../this._id}}{{this.company_logo}}{{/ifStatement}}{{/each}}"/><br>
+                    <span class="f-13 f-gray-d">{{../this.count_borrower}} Member</span>
+                    <h2>{{this.company_name}}</h2>
+                    <span class="f-15 f-gray-d">{{toLower ../this.city}}, {{toLower ../this.province}}</span><br>
+                    <span class="f-15 f-gray-d">{{this.phone_number}}</span><br>
+                    {{#each ../../company_settings}}
+                      {{#ifStatement this.company_id ../this._id}}
+                      {{#if this.isOnlinePayment}}
+                        <img class="img-fluid available-payment-logo mr-1 mt-2" src="/assets/img/logo/gcash.png" data-toggle="tooltip" data-placement="bottom" title="You can pay with gcash"/>
+                      {{/if}}
+                      {{/ifStatement}}
+                    {{/each}}
+                  </div>
+              </div>
+            {{/ifStatement}}
+          {{/each}}
+        {{/each}}
+      </div> -->
+      <div class="container-fluid mt--6">
+        <div class="row">
+       
+          {{#each company_info}}
+                <div class="col-sm-4 mb-3">
+                    <div class="custome-owner-cards br-5 p-4 pb-5 m-hover" data-toggle="modal" onclick="$('#{{this._id}}-company-info').modal()">
+                      <h4 class="text-right"><span data-toggle="tooltip" data-placement="bottom" title="Interest">{{#each ../company_settings}}{{#ifStatement this.company_id ../this._id}}{{this.interest}}{{/ifStatement}}{{/each}}%</span></h4>
+                      <img class="img-fluid owner-logo mb-3 rounded-circle" src="{{#each ../company_settings}}{{#ifStatement this.company_id ../this._id}}{{this.company_logo}}{{/ifStatement}}{{/each}}"/><br>
+                      <h2>{{this.company_name}}</h2>
+                      <span class="f-15 f-gray-d">{{toLower this.city}}, {{toLower this.province}}</span><br>
+                      <span class="f-15 f-gray-d">{{this.phone_number}}</span><br>
+                      {{#each ../company_settings}}
+                        {{#ifStatement this.company_id ../this._id}}
+                        {{#if this.isOnlinePayment}}
+                          <img class="img-fluid available-payment-logo mr-1 mt-2" src="/assets/img/logo/gcash.png" data-toggle="tooltip" data-placement="bottom" title="You can pay via gcash"/>
+                        {{/if}}
+                        {{/ifStatement}}
+                      {{/each}}
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL SELECTED COMPANY -->
+{{#each company_info}}
+<div class="modal fade bd-example-modal-lg" id="{{this._id}}-company-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Selected company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="/borrower/company/add-borrow">
+        <div class="modal-body pb-0 pt-0">
+            <div class="row">
+              <div class="col-sm-6">
+                <span class="f-15 f-gray-d ml-1">Company name</span>
+                  <input value="{{this.company_name}}" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+                  <input name="company_id" value="{{this._id}}" type="text" class="form-control mb-2 mt-1 disable-input" hidden>
+              </div>
+              <div class="col-sm-6">
+                <span class="f-15 f-gray-d ml-1">Select branch</span>
+                  <select name="branch_id" class="custom-select mt-1"  required>
+                    <option value="" selected></option>
+                    {{#each ../company_branch}}
+                      {{#ifStatement this.company_id ../this._id}}
+                      <option value="{{this._id}}">{{toUpper this.name}} Branch</small></option>
+                      {{/ifStatement}}
+                    {{/each}}
+                  </select>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Capital Interest</span>
+                  <input id="{{this._id}}-capital-interest" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Total</span>
+                  <input id="{{this._id}}-capital-interest-total" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Collect</span>
+                <input id="{{this._id}}-collect" value="" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Interest</span>
+                <input id="{{this._id}}-interest" value="{{#each ../company_settings}}{{#ifStatement this.company_id ../this._id}}{{this.interest}}{{/ifStatement}}{{/each}}%" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-6">
+                <span class="f-15 f-gray-d ml-1">Capital</span>
+                <select id="{{this._id}}-capital" name="capital" class="custom-select mt-1" onchange="$('#{{this._id}}-capital-interest').val((parseInt($('#{{this._id}}-capital').val())/parseInt($('#{{this._id}}-interest').val()))*parseInt($('#{{this._id}}-months').val()));  $('#{{this._id}}-capital-interest-total').val(parseInt($('#{{this._id}}-capital-interest').val())+parseInt($('#{{this._id}}-capital').val())); $('#{{this._id}}-collect').val( Math.round( parseInt($('#{{this._id}}-capital-interest-total').val()) / ((parseInt($('#{{this._id}}-months').val())*30) / $('#{{this._id}}-model').val()) ))" required>
+                  <option></option>
+                  {{#each ../company_capital}}
+                    {{#ifStatement this.company_id ../this._id}}
+                    <option value="{{this.value}}">{{this.value}}</option>
+                    {{/ifStatement}}
+                  {{/each}}
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Months to pay</span>
+                <input name="months" id="{{this._id}}-months" type="number" class="form-control mb-2 mt-1" onkeyup="$('#{{this._id}}-capital-interest').val((parseInt($('#{{this._id}}-capital').val())/parseInt($('#{{this._id}}-interest').val()))*parseInt($('#{{this._id}}-months').val())); $('#{{this._id}}-capital-interest-total').val(parseInt($('#{{this._id}}-capital-interest').val())+parseInt($('#{{this._id}}-capital').val()));$('#{{this._id}}-collect').val( Math.round( parseInt($('#{{this._id}}-capital-interest-total').val()) / ((parseInt($('#{{this._id}}-months').val())*30) / $('#{{this._id}}-model').val()) ))" onchange="$('#{{this._id}}-capital-interest').val((parseInt($('#{{this._id}}-capital').val())/parseInt($('#{{this._id}}-interest').val()))*parseInt($('#{{this._id}}-months').val())); $('#{{this._id}}-capital-interest-total').val(parseInt($('#{{this._id}}-capital-interest').val())+parseInt($('#{{this._id}}-capital').val()));$('#{{this._id}}-collect').val( Math.round( parseInt($('#{{this._id}}-capital-interest-total').val()) / ((parseInt($('#{{this._id}}-months').val())*30) / $('#{{this._id}}-model').val()) ))" required>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Mode of payment</span>
+                <select name="type" id="{{this._id}}-model" class="custom-select mt-1" onchange="$('#{{this._id}}-collect').val( Math.round(parseInt($('#{{this._id}}-capital-interest-total').val()) / ((parseInt($('#{{this._id}}-months').val())*30) / $('#{{this._id}}-model').val()) ))" required>
+                    <option selected></option>
+                    <option value="1">Daily</option>
+                    <option value="6">Weekly</option>
+                    <option value="15">Biweekly</option>
+                    <option value="30">Monthly</option>
+                    <option value="360">Yearly</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="button" value="Close" class="btn btn-secondary" data-dismiss="modal"/>
+            <button type="submit" class="btn btn-primary">Apply now</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{/each}}
+
+<!-- {{#each company_branch}}
+{{#each ../company_info}}
+{{#ifStatement this._id ../this.company_id}}
+<div class="modal fade bd-example-modal-lg" id="{{../this._id}}-company-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Selected company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="/borrower/company/add-borrow">
+        <div class="modal-body pb-0 pt-0">
+            <div class="row">
+              <div class="col-sm-6">
+                <span class="f-15 f-gray-d ml-1">Company name</span>
+                  <input value="{{this.company_name}}" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+                  <input name="company_id" value="{{this._id}}" type="text" class="form-control mb-2 mt-1 disable-input" hidden>
+              </div>
+              <div class="col-sm-6">
+                <span class="f-15 f-gray-d ml-1">Branch address</span>
+                  <input value="{{toLower ../this.city}}, {{toLower ../this.province}}" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+                  <input name="branch_id" value="{{../this._id}}" type="text" class="form-control mb-2 mt-1 disable-input" hidden>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Capital Interest</span>
+                  <input id="{{../this._id}}-capital-interest" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Total</span>
+                  <input id="{{../this._id}}-capital-interest-total" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Collect</span>
+                <input id="{{../this._id}}-collect" value="" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Interest</span>
+                <input id="{{../this._id}}-interest" value="{{#each ../../company_settings}}{{#ifStatement this.company_id ../this._id}}{{this.interest}}{{/ifStatement}}{{/each}}%" type="text" class="form-control mb-2 mt-1 disable-input" disabled>
+              </div>
+              <div class="col-sm-6">
+                <span class="f-15 f-gray-d ml-1">Capital</span>
+                <select id="{{../this._id}}-capital" name="capital" class="custom-select mt-1" onchange="$('#{{../this._id}}-capital-interest').val((parseInt($('#{{../this._id}}-capital').val())/parseInt($('#{{../this._id}}-interest').val()))*parseInt($('#{{../this._id}}-months').val()));  $('#{{../this._id}}-capital-interest-total').val(parseInt($('#{{../this._id}}-capital-interest').val())+parseInt($('#{{../this._id}}-capital').val())); $('#{{../this._id}}-collect').val( Math.round( parseInt($('#{{../this._id}}-capital-interest-total').val()) / ((parseInt($('#{{../this._id}}-months').val())*30) / $('#{{../this._id}}-model').val()) ))" required>
+                  <option></option>
+                  {{#each ../../company_capital}}
+                    {{#ifStatement this.company_id ../this._id}}
+                    <option value="{{this.value}}">{{this.value}}</option>
+                    {{/ifStatement}}
+                  {{/each}}
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Months to pay</span>
+                <input name="months" id="{{../this._id}}-months" type="number" class="form-control mb-2 mt-1" onkeyup="$('#{{../this._id}}-capital-interest').val((parseInt($('#{{../this._id}}-capital').val())/parseInt($('#{{../this._id}}-interest').val()))*parseInt($('#{{../this._id}}-months').val())); $('#{{../this._id}}-capital-interest-total').val(parseInt($('#{{../this._id}}-capital-interest').val())+parseInt($('#{{../this._id}}-capital').val()));$('#{{../this._id}}-collect').val( Math.round( parseInt($('#{{../this._id}}-capital-interest-total').val()) / ((parseInt($('#{{../this._id}}-months').val())*30) / $('#{{../this._id}}-model').val()) ))" required>
+              </div>
+              <div class="col-sm-3">
+                <span class="f-15 f-gray-d ml-1">Mode of payment</span>
+                <select name="type" id="{{../this._id}}-model" class="custom-select mt-1" onchange="$('#{{../this._id}}-collect').val( Math.round(parseInt($('#{{../this._id}}-capital-interest-total').val()) / ((parseInt($('#{{../this._id}}-months').val())*30) / $('#{{../this._id}}-model').val()) ))" required>
+                    <option selected></option>
+                    <option value="1">Daily</option>
+                    <option value="6">Weekly</option>
+                    <option value="15">Biweekly</option>
+                    <option value="30">Monthly</option>
+                    <option value="360">Yearly</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="button" value="Close" class="btn btn-secondary" data-dismiss="modal"/>
+            <button type="submit" class="btn btn-primary">Apply now</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{/ifStatement}}
+{{/each}}
+{{/each}} -->
+<!-- END OF MODAL -->
+

@@ -1,0 +1,359 @@
+<div class="custome-background-all">
+  {{> borrower-sidenav paid=true}}
+  <div class="main-content" id="panel">
+    {{> alert-all }}
+    {{> borrower-topnav paid=true}}
+    <!-- Page content -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4 pt-0">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6 text-right">
+             
+            </div>
+          </div>
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Capital
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{comma myPayment.capital}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-money-coins"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold" data-toggle="tooltip" data-placement="bottom" title="Capital total"
+                      ><i class="ni ni-money-coins mr-2"></i>{{comma myPayment.capital_total}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Interest
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{concatText myPayment.interest '%' 0}}</span>
+                    </div>
+                    <divni-circle-08 class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="fas fa-arrow-up"></i>
+                      </div>
+                    </divni-circle-08>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold" data-toggle="tooltip" data-placement="bottom" title="Capital interest"
+                      ><i class="fas fa-arrow-up mr-2"></i>{{comma myPayment.capital_interest}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Collect
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{comma myPayment.collect}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-time-alarm"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold" data-toggle="tooltip" data-placement="bottom" title="Type"
+                      ><i class="ni ni-time-alarm mr-2"></i>{{convertMode myPayment.type}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Balance
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{comma myPayment.balance}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-fat-remove"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold" data-toggle="tooltip" data-placement="bottom" title="Payed"
+                      ><i class="ni ni-check-bold mr-2"></i>{{comma myPayment.total_payed}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-md-5 order-xl-2">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center mb-2">
+                <div class="col pl-4">
+                  <h5 class="mb-0">Select Company</h3>
+                </div>
+              </div>
+              <form action="/borrower/paid/select" method="GET">
+                <select name="_id" class="custom-select" onchange="this.form.submit()">
+                  <option selected></option>
+                  {{#each myCompany}}
+                    {{#each ../companyInfo}}
+                    {{#ifStatement this._id ../this.company_id}}
+                      <option value="{{../this._id}}">{{this.company_name}} - {{convertDate ../this.createdAt "MMMM DD, YYYY"}}</option>
+                    {{/ifStatement}}
+                    {{/each}}
+                  {{/each}}
+                </select>
+              </form>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Company Information</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row">
+                     Company name
+                    </td>
+                    <td scope="row">
+                      {{selectedCompany.company_name}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Collector fullname
+                     </td>
+                     <td scope="row">
+                      {{toUpper myCollector.firstname}} {{middleInitials myCollector.middlename}} {{toUpper myCollector.lastname}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Collector phone #
+                     </td>
+                     <td scope="row">
+                      {{myCollector.phone_number}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                        Address
+                     </td>
+                     <td scope="row">
+                      {{#each companyBranch}}
+                        {{#ifStatement this._id ../myPayment.branch_id}}
+                          {{this.barangay}} {{this.city}} {{this.province}}
+                        {{/ifStatement}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Branch
+                     </td>
+                     <td scope="row">
+                      {{#each companyBranch}}
+                        {{#ifStatement this._id ../myPayment.branch_id}}
+                          {{this.name}}
+                        {{/ifStatement}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Status
+                     </td>
+                     <td scope="row">
+                      {{myPayment.isStatus}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Months to pay
+                     </td>
+                     <td scope="row">
+                      {{myPayment.months}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Date start
+                     </td>
+                     <td scope="row">
+                      {{#each collectDate.dates}}
+                      {{#if @first}}{{convertMonth this.mm}} {{this.dd}}, {{this.yy}}{{/if}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Date end
+                     </td>
+                     <td scope="row">
+                      {{#each collectDate.dates}}
+                      {{#if @last}}{{convertMonth this.mm}} {{this.dd}}, {{this.yy}}{{/if}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Date paid 
+                     </td>
+                     <td scope="row">
+                      {{convertDate myPayment.date_payed 'MMMM DD, YYYY'}}
+                     </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 order-xl-1">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Paid</h3>
+                </div>
+                <div class="col text-right">
+                  <input type="text" id="searchCustomer" class="form-control rounded-pill" placeholder="Search date" onkeyup="myFunction()">
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush" id="calendar_table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each myPayed}}
+                  {{#if this.isStatus}}
+                  <tr>
+                    <td>
+                      {{#ifStatement this.month 0}}
+                        {{convertDate this.createdAt 'MMMM DD, YYYY'}}
+                      {{else}}
+                        {{convertMonth this.month}} {{this.day}}, {{this.year}}
+                      {{/ifStatement}}
+                    </td>
+                    <td>
+                      {{this.amount}}
+                    </td>
+                    <td>
+                      {{#if this.isOnline}}
+                      Online
+                      {{else}}
+                      Cash
+                      {{/if}}
+                    </td>
+                    <td class="{{#if this.isStatus}}text-success{{else}}text-danger{{/if}}">
+                      {{#if this.isStatus}}
+                      Paid
+                      {{else}}
+                        Pending
+                      {{/if}}
+                    </td>
+                  </tr>
+                  {{/if}}
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>  
+</div>

@@ -1,0 +1,377 @@
+{{> company-sidenav-customize dashboard=true}}
+<div class="main-content pl-5" id="panel">
+  
+  <!-- Page content -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <!--SPACE-->
+        </div>
+        <!-- Card stats -->
+        <div class="row">
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Collected today
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{comma collectedToday}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class="
+                        icon icon-shape
+                        bg-gradient-primary
+                        text-white
+                        rounded-circle
+                        shadow
+                      "
+                    >
+                      <i class="fas fa-arrow-up"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-money-coins mr-2"></i>{{cntCollectedToday}} customer</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Released today
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{comma releasedToday}}</span>
+                  </div>
+                  <divni-circle-08 class="col-auto">
+                    <div
+                      class="
+                        icon icon-shape
+                        bg-gradient-primary
+                        text-white
+                        rounded-circle
+                        shadow
+                      "
+                    >
+                      <i class="fas fa-arrow-down"></i>
+                    </div>
+                  </divni-circle-08>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-money-coins mr-2"></i>{{cntReleasedToday}} collector</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Accepted today
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{checkZero cntCustomerAcceptedToday}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class="
+                        icon icon-shape
+                        bg-gradient-primary
+                        text-white
+                        rounded-circle
+                        shadow
+                      "
+                    >
+                      <i class="ni ni-single-02"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-single-02 mr-2"></i>Customer</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Pending
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{checkZero customerPending}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class="
+                        icon icon-shape
+                        bg-gradient-primary
+                        text-white
+                        rounded-circle
+                        shadow
+                      "
+                    >
+                      <i class="ni ni-single-02"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-2 mb-0 text-sm">
+                  <span class="text-black mr-2"
+                    ><i class="ni ni-single-02 mr-2"></i>Customer</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-xl-4 order-xl-2">
+        <div class="card card-stats">
+          <!-- Card body -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-uppercase text-muted mb-2">
+                  Company subscription
+                </h5>
+                <span class="h2 font-weight-bold mb-0 text-danger" data-toggle="tooltip" data-placement="bottom" title="Company expire">{{convertDate credentials.expiry_end 'MMMM DD, YYYY'}}</span>
+              </div>
+              <div class="col-auto">
+                <div
+                  class="
+                    icon icon-shape
+                    bg-gradient-danger
+                    text-white
+                    rounded-circle
+                    shadow
+                  "
+                >
+                  <i class="ni ni-time-alarm"></i>
+                </div>
+              </div>
+            </div>
+            <p class="mt-2 mb-0 text-sm">
+              <span class="text-black mr-2"
+                ><i class="ni ni-time-alarm mr-2"></i>Started {{convertDate credentials.expiry_start 'MMMM DD, YYYY'}}</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded mb-3" style="width: 100%;">
+          <span class="h4 font-weight-bold mb-0">Total customer</span>
+           <!-- Projects table -->
+           <table class="table align-items-center table-flush table-striped table-hover mt-2" id="payedTable">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each total_customer}}
+              <tr>
+                <td>
+                  {{convertMonth this.month}} {{this.year}}
+                </td>
+                <td>
+                  {{this.total}}
+                </td>
+                <td>
+                  {{multiply this.total this.payment}}
+                </td>
+                <td>
+                  {{#if this.isPaid}}
+                  <span class="text-success">Paid</span>
+                  {{else}}
+                  <span class="text-danger">Not Paid</span>
+                  {{/if}}
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-xl-8 pb-2 order-xl-1">
+        <div class="bg-white p-4 rounded" style="width: 100%;height: 100%;">
+          <span class="h4 font-weight-bold mb-0">This year</span>
+          <input id="col1" type="text" value="{{janC}}" hidden>
+          <input id="col2" type="text" value="{{febC}}" hidden>
+          <input id="col3" type="text" value="{{marC}}" hidden>
+          <input id="col4" type="text" value="{{aprC}}" hidden>
+          <input id="col5" type="text" value="{{mayC}}" hidden>
+          <input id="col6" type="text" value="{{juneC}}" hidden>
+          <input id="col7" type="text" value="{{julyC}}" hidden>
+          <input id="col8" type="text" value="{{augC}}" hidden>
+          <input id="col9" type="text" value="{{sepC}}" hidden>
+          <input id="col10" type="text" value="{{octC}}" hidden>
+          <input id="col11" type="text" value="{{novC}}" hidden>
+          <input id="col12" type="text" value="{{decC}}" hidden>
+
+          <input id="col1R" type="text" value="{{janR}}" hidden>
+          <input id="col2R" type="text" value="{{febR}}" hidden>
+          <input id="col3R" type="text" value="{{marR}}" hidden>
+          <input id="col4R" type="text" value="{{aprR}}" hidden>
+          <input id="col5R" type="text" value="{{mayR}}" hidden>
+          <input id="col6R" type="text" value="{{juneR}}" hidden>
+          <input id="col7R" type="text" value="{{julyR}}" hidden>
+          <input id="col8R" type="text" value="{{augR}}" hidden>
+          <input id="col9R" type="text" value="{{sepR}}" hidden>
+          <input id="col10R" type="text" value="{{octR}}" hidden>
+          <input id="col11R" type="text" value="{{novR}}" hidden>
+          <input id="col12R" type="text" value="{{decR}}" hidden>
+          <div>
+            <canvas id="calendarChart"></canvas>
+          </div>
+          <div class="row mb-0 pb-0">
+            <div class="col-sm-12 text-right pt-3 pb-0 mb-0">
+              <div class="col pb-0 mb-0">
+                <small class="text-muted">This year transaction</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-2 pb-2 order-xl-1" style="width: 100%;height: 100%;">
+        <div class="bg-white p-4 rounded mb-3" style="width: 100%;">
+          <span class="h4 font-weight-bold mb-0">Paid customer</span>
+          <div class="progress mt-2" style="height: 20px;">
+            <div class="progress-bar" style='width: {{percentage payedCustomer notPayedCustomer}}%;' role="progressbar" aria-valuenow="{{percentage payedCustomer notPayedCustomer}}" aria-valuemin="0" aria-valuemax="100">{{percentage payedCustomer notPayedCustomer}}%</div>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded" style="width: 100%;">
+          <span class="h4 font-weight-bold mb-0">Overall</span>
+          <input id="getCollectedTotal" type="text" value="{{collectedTotal}}" hidden>
+          <input id="getReleasedTotal" type="text" value="{{releasedTotal}}" hidden>
+          <div>
+            <canvas id="pieChart"></canvas>
+          </div>
+          <div class="row mb-0 pb-0">
+            <div class="col-sm-12 text-right pt-5 pb-0 mb-0">
+              <div class="col pb-0 mb-0">
+                <small class="text-muted">Overall transaction</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+   
+   
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer pt-0">
+      <div class="row align-items-center justify-content-lg-between">
+        <div class="col-lg-6">
+          <div class="copyright text-center  text-lg-left  text-muted">
+            &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!--SCRIPT-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- CALENDAR -->
+<script>
+  const labels = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Collected',
+      backgroundColor: '#57B894',
+      borderColor: '#57B894',
+      data: [$('#col1').val(), $('#col2').val(), $('#col3').val(), $('#col4').val(), $('#col5').val(), $('#col6').val(), $('#col7').val(), $('#col8').val(), $('#col9').val(), $('#col10').val(), $('#col11').val(), $('#col12').val()],
+    },
+    {
+      label: 'Released',
+      backgroundColor: 'rgb(220, 53, 69)',
+      borderColor: 'rgb(220, 53, 69)',
+      data: [$('#col1R').val(), $('#col2R').val(), $('#col3R').val(), $('#col4R').val(), $('#col5R').val(), $('#col6R').val(), $('#col7R').val(), $('#col8R').val(), $('#col9R').val(), $('#col10R').val(), $('#col11R').val(), $('#col12R').val()],
+    }]
+  };
+  const config = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('calendarChart'),
+    config
+  );
+</script>
+<!-- PIE CHART -->
+<script>
+  var released = parseInt(document.getElementById("getReleasedTotal").value);
+  var collected = parseInt(document.getElementById("getCollectedTotal").value);
+
+  const dataPie = {
+    labels: [
+      'Collected',
+      'Released'
+    ],
+    datasets: [{
+      label: 'Overall',
+      data: [collected, released],
+      backgroundColor: [
+        '#57B894',
+        '#F07470'
+      ],
+      hoverOffset: 4
+    }]
+  };
+  const configPie = {
+    type: 'pie',
+    data: dataPie,
+  };
+</script>
+<script>
+  const myChartPie = new Chart(
+    document.getElementById('pieChart'),
+    configPie
+  );
+</script>

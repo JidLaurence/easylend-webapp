@@ -1,0 +1,33 @@
+
+<div class="container-fluid p-0 m-0">
+  <div class="jumbotron m-0" style="min-height: 100vh;padding-top: 10%;">
+    <center>
+      <img
+        src="/assets/img/applogo.png"
+        alt="app logo"
+        width="55"
+        class="img-responsive"
+      />
+      <br> <br> <br>
+      <img src="https://www.gstatic.com/youtube/src/web/htdocs/img/monkey.png" class="img-fluid"/>
+    </center>
+    <h1 class="text-center mt-4">
+      We couldn't find the page..
+      <p>
+        <small class="text-center">Try pressing the back button or clicking on this button.</small>
+      </p>
+    </h1>
+    <p class="text-center mt-4">
+      <button onclick="goBack()" class="btn btn-primary" href="#">
+        <i class="fas fa-undo"></i> BACK
+      </button>
+      <br>
+   
+    </p>
+  </div>
+</div>
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>

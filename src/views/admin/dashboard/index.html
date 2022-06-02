@@ -1,0 +1,160 @@
+<div class="custome-background-all">
+  {{> admin-sidenav dashboard=true}}
+  <div class="main-content" id="panel">
+
+    {{> admin-topnav}}
+    <!-- Page content -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                  <li class="breadcrumb-item"><a href="#">Company</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Default</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-8" style="min-height: 60vh;">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Company list</h3>
+                </div>
+                <div class="col text-right">
+                  <div class="col">
+                    {{companyCnt}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date Started</th>
+                    <th scope="col">Date End</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each company}}
+                  <tr class='clickable-row m-hover' data-href='/admin/dashboard/selected?_id={{this._id}}'>
+                    <th scope="row">
+                      <img src="{{this.profile_img}}" class="img-fluid rounded-circle mr-2" width="25" height="25"> {{this.company_name}}
+                    </th>
+                    <td>
+                      {{this.email}}
+                    </td>
+                    <td>
+                      {{convertDate this.expiry_start 'MMMM DD, YYYY'}}
+                    </td>
+                    <td>
+                      {{convertDate this.expiry_end  'MMMM DD, YYYY'}}
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4" style="min-height: 60vh;">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col-sm-12">
+                  <h3 class="mb-0">Company Expire this month</h3>
+                </div>
+              </div>
+              <!-- <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Select Company</option>
+                <option value="1">Comapny 1</option>
+                <option value="2">Comapny 2</option>
+                <option value="3">Comapny 3</option>
+              </select> -->
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date end</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each company_expire}}
+                  <tr class='clickable-row m-hover' data-href='/admin/dashboard/selected?_id={{this._id}}'>
+                    <th scope="row">
+                      {{this.company_name}}
+                    </th>
+                    <td>
+                      {{convertDate this.expiry_end 'MMMM-DD-YY'}}
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>  
+</div>
+
+<!-- MODAL ADD COMPANY -->
+<div class="modal fade" id="add-company" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pb-0 pt-0">
+        <input name="code" type="text" class="form-control mb-2" placeholder="Code">
+        <span class="f-12 f-gray">input company code</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+  });
+</script>

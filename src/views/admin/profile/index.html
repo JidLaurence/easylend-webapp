@@ -1,0 +1,247 @@
+<div class="custome-background-all">
+  {{> admin-sidenav}}
+  <div class="main-content" id="panel">
+
+    {{> admin-topnav}}
+     <!-- Header -->
+     <div class="header bg-primary pb-6 d-flex align-items-center">
+      <!-- Mask -->
+      <span class="mask  opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row pt-5">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello</h1>
+            <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2">
+          <div class="card card-profile">
+            <img src="../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                    <img src="../assets/img/theme/team-4.jpg" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+              </div>
+            </div>
+            <div class="card-body pt-4">
+              <div class="text-center">
+                <h5 class="h3">
+                  {{toUpper credentials.firstname}} {{middleInitials credentials.middlename}} {{toUpper credentials.lastname}}<span class="font-weight-light"> {{age credentials.birthday}}</span>
+                </h5>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>{{credentials.barangay}} {{credentials.city}} {{credentials.province}}
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>SUPER ADMIN
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card">
+            <form method="POST" action="/admin/profile/update">
+              <div class="card-header">
+                <div class="row align-items-center">
+                  <div class="col-8">
+                    <h3 class="mb-0">Edit profile </h3>
+                  </div>
+                  <div class="col-4 text-right">
+                    <button type="submit" class="btn btn-sm btn-primary">Update profile</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                  <h6 class="heading-small text-muted mb-4">User information</h6>
+                  <div class="pl-lg-4">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label">Email address</label>
+                          <input type="email" name="email" class="form-control" value="{{credentials.email}}">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label">Birthday</label>
+                          <input type="date" name="birthday" class="form-control" value="{{credentials.birthday}}">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label">First name</label>
+                          <input type="text" name="firstname" class="form-control" value="{{credentials.firstname}}">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label">Middle name</label>
+                          <input type="text"  name="middlename" class="form-control" value="{{credentials.middlename}}">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label">Last name</label>
+                          <input type="text" name="lastname" class="form-control" value="{{credentials.lastname}}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-4" />
+                  <!-- Address -->
+                  <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                  <div class="pl-lg-4">
+                    <div class="row">
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-country">Region</label>
+                          <input type="text" class="form-control" placeholder="Select Region" name="region_name"
+                            id="region_name" hidden />
+                          <br />
+                          <select name="region" class="form-control" id="region" required></select>
+                        </div>
+                      </div>
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-country">Province</label>
+                          <input type="text" class="form-control" placeholder="Select Province" name="province_name"
+                            id="province_name" hidden />
+                          <br />
+                          <select name="province" class="form-control" id="province" required></select>
+                        </div>
+                      </div>
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-city">City</label>
+                          <input type="text" class="form-control" placeholder="Select City" name="city_name"
+                            id="city_name" hidden />
+                          <br />
+                          <select name="city" class="form-control" id="city" required></select>
+                        </div>
+                      </div>
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-city">Barangay</label>
+                          <input type="text" class="form-control" placeholder="Select Barangay" name="barangay_name"
+                            id="barangay_name" hidden />
+                          <br />
+                          <select name="barangay" class="form-control" id="barangay" required></select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="form-control-label">Complete address</label>
+                          <input name="address" class="form-control"
+                            placeholder="Garcia Street, Purok 11 Poblacion Valencia city Bukidnon"
+                            value="{{credentials.address}}" type="text" {{#if
+                            credentials.validate_account}}disabled{{/if}} required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>  
+</div>
+
+<!-- MODAL ADD COMPANY -->
+<div class="modal fade" id="add-company" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pb-0 pt-0">
+        <input name="code" type="text" class="form-control mb-2" placeholder="Code">
+        <span class="f-12 f-gray">input company code</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+  });
+</script>
+<!-- Home Address -->
+<script type="text/javascript">
+  var my_handlers = {
+    fill_provinces: function () {
+      $('#btn-save').prop('disabled', true);
+      var region_code = $(this).val();
+      $('#region_name').val($(this).find(':selected').text());
+
+      $('#province').ph_locations('fetch_list', [{ region_code: region_code }]);
+    },
+
+    fill_cities: function () {
+      var province_code = $(this).val();
+      $('#province_name').val($(this).find(':selected').text());
+      $('#city').ph_locations('fetch_list', [{ province_code: province_code }]);
+    },
+
+    fill_barangays: function () {
+      var city_code = $(this).val();
+      $('#city_name').val($(this).find(':selected').text());
+      $('#barangay').ph_locations('fetch_list', [{ city_code: city_code }]);
+    },
+    set_barangays: function () {
+      var city_code = $(this).val();
+      $('#barangay_name').val($(this).find(':selected').text());
+    },
+  };
+
+  $(function () {
+    $('#region').on('change', my_handlers.fill_provinces);
+    $('#province').on('change', my_handlers.fill_cities);
+    $('#city').on('change', my_handlers.fill_barangays);
+    $('#barangay').on('change', my_handlers.set_barangays);
+
+    $('#region').ph_locations({ location_type: 'regions' });
+    $('#province').ph_locations({ location_type: 'provinces' });
+    $('#city').ph_locations({ location_type: 'cities' });
+    $('#barangay').ph_locations({ location_type: 'barangays' });
+
+    $('#region').ph_locations('fetch_list');
+  });
+</script>

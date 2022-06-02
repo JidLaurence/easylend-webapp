@@ -1,0 +1,148 @@
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Easylend offers a unique ways in providing and giving services to the micro lending organizations and individuals that can change the way they see things impossible to happen to possible!"
+    />
+    <meta name="keywords" content="easylend" />
+    <meta name="keywords" content="easylendph" />
+    <meta name="keywords" content="easylendcompany" />
+    <meta name="robots" content="index,follow" />
+    <meta name="DC.title" content="Easylend by Jed Laurence C. Udtohan" />
+    <meta name="author" content="Jed Laurence C. Udtohan" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{{appinfo 'title'}}</title>
+    <link
+      rel="shortcut icon"
+      href="/assets/img/apptitle.png"
+      type="image/x-icon"
+    />
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/img/brand/favicon.png" type="image/png" />
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+    />
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/nucleo/css/nucleo.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+      type="text/css"
+    />
+    <!-- Argon CSS -->
+    <link
+      rel="stylesheet"
+      href="/assets/css/argon.css?v=1.2.0"
+      type="text/css"
+    />
+
+    <link
+      href="/assets/vendor/jquery/dist/jquery-ui.min.css"
+      rel="stylesheet"
+    />
+    <!-- Customize CSS-->
+    <link rel="stylesheet" href="/assets/css/easylend.css" type="text/css" />
+
+
+  </head>
+
+  <body
+    class="bg-default"
+    data-action="sidenav-pin"
+    data-target="#sidenav-main"
+    style="background-color: white !important;"
+  >
+    <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery/dist/jquery-ui.min.js"></script>
+    <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+
+    <!-- PRELOADER -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <div id="preloader"></div>
+
+    {{{content}}}
+
+    <!-- Chart JS -->
+    <script src="/assets/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+    <!-- Argon JS -->
+    <script src="/assets/js/argon.js?v=1.2.0"></script>
+    <!-- LOCAL ADDRESS CDN -->
+    <script type="text/javascript" src="/assets/js/ph-location-api.js"></script>
+    <!-- PRELOADER -->
+    <script>
+      $(window).on('load', function () {
+        $('#preloader')
+          .delay(100)
+          .fadeOut('slow', function () {
+            $(this).remove();
+          });
+      });
+    </script>
+    <!-- SWEET ALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--SORTING TABLE -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/sortTable.css">
+    <script type="text/javascript" charset="utf8" src="/assets/js/sortTable.js"></script>
+    <!--EXPORT TABLE INTO EXCEL-->
+    <script type="text/javascript" src="/assets/js/xlsx.full.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="/assets/js/exportExcel.js"></script>
+    <!--PRINT TABLE-->
+    <script type="text/javascript" charset="utf8" src="/assets/js/printTable.js"></script>
+     <!--SEARCH CUSTOMER TABLE-->
+     <script type="text/javascript" charset="utf8" src="/assets/js/searchCustomerTable.js"></script>
+
+     <script>
+          (()=>{
+          let url = window.location;
+          let query = url.search;
+
+          if(!query) return;
+
+          let alert = {}
+          query
+              .substr(1, query.length)
+              .split("&")
+              .map(r=>r.split("="))
+              .forEach(r=>{
+                  alert[r[0]] = decodeURI(r[1])
+              })
+
+
+          if(!alert.message && !alert.alertType) return
+
+          const {
+            message:title,
+            alertType:icon
+          } = alert
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({icon,title});
+        })()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,610 @@
+<div class="custome-background-all">
+  {{> borrower-sidenav dashboard=true}}
+  <div class="main-content" id="panel">
+    {{> borrower-topnav}}
+    <!-- Page content -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+        
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Capital
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{comma myPayment.capital}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-money-coins"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold" data-toggle="tooltip" data-placement="bottom" title="Capital total"
+                      ><i class="ni ni-money-coins mr-2"></i>{{comma myPayment.capital_total}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Interest
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{concatText myPayment.interest '%' 0}}</span>
+                    </div>
+                    <divni-circle-08 class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="fas fa-arrow-up"></i>
+                      </div>
+                    </divni-circle-08>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold" data-toggle="tooltip" data-placement="bottom" title="Capital interest"
+                      ><i class="fas fa-arrow-up mr-2"></i>{{comma myPayment.capital_interest}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Collect
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{comma myPayment.collect}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-time-alarm"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold"  data-toggle="tooltip" data-placement="bottom" title="Type"
+                      ><i class="ni ni-time-alarm mr-2"></i>{{convertMode myPayment.type}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Balance
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{comma myPayment.balance}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-money-coins"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-danger mr-2 fw-bold" data-toggle="tooltip" data-placement="bottom" title="Payed"
+                      ><i class="ni ni-check-bold mr-2"></i>{{comma myPayment.total_payed}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-md-5 order-xl-2">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row">
+                  <div class="{{#if companySettings.isOnlinePayment}}col-sm-8{{else}}col-sm-12{{/if}}">
+                    <h5>Select Company</h3>
+                    <form action="/borrower/dashboard/select" method="GET">
+                      <select name="_id" class="custom-select" onchange="this.form.submit()">
+                        <option selected></option>
+                        {{#each myCompany}}
+                          {{#each ../companyInfo}}
+                          {{#ifStatement this._id ../this.company_id}}
+                            <option value="{{this._id}}">{{this.company_name}}</option>
+                          {{/ifStatement}}
+                          {{/each}}
+                        {{/each}}
+                      </select>
+                    </form>
+                  </div>
+                  {{#ifStatement  myPayment.isStatus 'Accepted'}}
+                    {{#if companySettings.isOnlinePayment}}
+                    <div class="col-sm-4">
+                      <span class="mb-0">&nbsp;</span>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#onlinePayment" style="width: 100%;">Pay Online</button>
+                    </div>
+                    {{/if}}
+                  {{/ifStatement}}
+              </div>
+           
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Company Information</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row">
+                     Company name
+                    </td>
+                    <td scope="row" class="fw-bold">
+                      {{selectedCompany.company_name}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Collector fullname
+                     </td>
+                     <td scope="row">
+                      {{toUpper myCollector.firstname}} {{middleInitials myCollector.middlename}} {{toUpper myCollector.lastname}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Collector phone #
+                     </td>
+                     <td scope="row">
+                      {{myCollector.phone_number}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                        Address
+                     </td>
+                     <td scope="row">
+                      {{#each companyBranch}}
+                        {{#ifStatement this._id ../myPayment.branch_id}}
+                          {{this.barangay}} {{this.city}} {{this.province}}
+                        {{/ifStatement}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Branch
+                     </td>
+                     <td scope="row">
+                      {{#each companyBranch}}
+                        {{#ifStatement this._id ../myPayment.branch_id}}
+                          {{this.name}}
+                        {{/ifStatement}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Status
+                     </td>
+                     <td scope="row" class="fw-bold text-{{#ifStatement  myPayment.isStatus 'Accepted'}}success{{/ifStatement}}{{#ifStatement  myPayment.isStatus 'Pending'}}danger{{/ifStatement}}">
+                      {{myPayment.isStatus}}
+                     </td>
+                    
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Months to pay
+                     </td>
+                     <td scope="row">
+                      {{myPayment.months}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Date start
+                     </td>
+                     <td scope="row">
+                      {{#each collectDate.dates}}
+                      {{#if @first}}{{convertMonth this.mm}} {{this.dd}}, {{this.yy}}{{/if}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                  <tr>
+                    <td scope="row">
+                      Date end
+                     </td>
+                     <td scope="row">
+                      {{#each collectDate.dates}}
+                      {{#if @last}}{{convertMonth this.mm}} {{this.dd}}, {{this.yy}}{{/if}}
+                      {{/each}}
+                     </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 order-xl-1">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Payment</h3>
+                </div>
+                <div class="col text-right">
+                  <input type="text" id="searchPayed" class="form-control rounded-pill" placeholder="Search date" onkeyup="myFunction()">
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush" id="payedTable">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each myPayed}}
+                  <tr>
+                    <td>
+                      {{#ifStatement this.month 0}}
+                        {{convertDate this.createdAt 'MMMM DD, YYYY'}}
+                      {{else}}
+                        {{convertMonth this.month}} {{this.day}}, {{this.year}}
+                      {{/ifStatement}}
+                    </td>
+                    <td>
+                      {{this.amount}}
+                    </td>
+                    <td>
+                      {{#if this.isOnline}}
+                      Online
+                      {{else}}
+                      Cash
+                      {{/if}}
+                    </td>
+                    <td class="{{#if this.isStatus}}text-success{{else}}text-danger{{/if}}">
+                      {{#if this.isStatus}}
+                      Paid
+                      {{else}}
+                        {{#if this.isDeclined}}
+                          Declined
+                        {{else}}
+                          Pending
+                        {{/if}}
+                        
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{#if this.isOnline}}
+                        <i class="ni ni-ui-04 m-hover" data-toggle="modal" onclick="$('#update-onlinePayment-{{this._id}}').modal()"></i>
+                      {{/if}}
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>  
+</div>
+
+<!--MODAL-->
+<!-- ONLINE PAYMENT -->
+<div class="modal fade" id="onlinePayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pay through  Gcash</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form_post" action="/borrower/dashboard/payOnline" method="POST" enctype="multipart/form-data">
+      <div class="modal-body pt-0">
+        <div class="row">
+          <div class="col-sm-6" style="border-right: 1px solid rgb(233, 233, 233);">
+            <input name="customer_id" type="text" value="{{myPayment._id}}" hidden required>
+            <span class="f-15 f-gray-d ml-1">Company name</span>
+            <input type="text" class="form-control mb-2 mt-1 disable-input" value="{{selectedCompany.company_name}}" disabled>
+            <span class="f-15 f-gray-d ml-1">Account number</span>
+            <input type="text" class="form-control mb-2 mt-1 disable-input" value="{{companySettings.gcash_number}}" disabled><br>
+            <span class="f-15 f-gray-d ml-1">Amount</span>
+            <input name="amount" type="number" class="form-control mb-2 mt-1" min="{{myPayment.collect}}" max="{{myPayment.balance}}" required>
+            <span class="f-12 text-danger ml-2">Please pay mimum amount of {{comma myPayment.collect}}</span><br><br>
+            <span class="f-15 f-gray-d ml-1">Ref. No.</span>
+            <input name="refNum" type="number" class="form-control mb-2 mt-1" required>
+          </div>
+
+          <div class="col-sm-6">
+            <h5 class="f-15 f-gray-d ml-1">Upload Gcash receipt</h5>
+            <center>
+              <img
+                class="img-fluid"
+                id="imageResult"
+                src="/assets/img/no-image.png"
+                class="rounded-circle"
+              />
+            </center>
+            <input
+                id="upload"
+                name="image"
+                type="file"
+                accept=".jpg,.jpeg"
+                onchange="readURL(this);"
+                class="form-control border-0"
+                required
+            />
+            <span class="f-12 f-gray-d ml-2 text-danger">Screenshot your gcash receipt</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="saveBtn">Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--UPDATE ONLINE PAYMENT-->
+{{#each myPayed}}
+{{#if this.isOnline}}
+<div class="modal fade" id="update-onlinePayment-{{this._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {{#if this.isStatus}}
+      {{else}}
+      <form id="form_post" action="/borrower/dashboard/payOnline-update" method="POST" enctype="multipart/form-data">
+      {{/if}}
+      <div class="modal-body pt-0">
+        <div class="row">
+          <div class="col-sm-6" style="border-right: 1px solid rgb(233, 233, 233);">
+            <input name="payment_id" type="text" value="{{this._id}}" required hidden>
+            <span class="f-15 f-gray-d ml-1">Company name</span>
+            <input type="text" class="form-control mb-2 mt-1 disable-input" value="{{../selectedCompany.company_name}}" disabled>
+            <span class="f-15 f-gray-d ml-1">Account number</span>
+            <input type="text" class="form-control mb-2 mt-1 disable-input" value="{{../companySettings.gcash_number}}" disabled><br>
+            <span class="f-15 f-gray-d ml-1">Amount</span>
+            <input type="number" class="form-control mb-2 mt-1" value="{{this.amount}}" disabled>
+            <span class="f-12 text-danger ml-2">Please pay mimum amount of {{comma ../myPayment.collect}}</span><br><br>
+            <span class="f-15 f-gray-d ml-1">Ref. No.</span>
+            <input type="number" value="{{this.refNum}}" class="form-control mb-2 mt-1" disabled>
+          </div>
+          <div class="col-sm-6">
+            <h5 class="f-15 f-gray-d ml-1">Upload Gcash receipt</h5>
+            <center>
+              <img
+                class="img-fluid"
+                id="imageResult"
+                src="{{this.recieptIMG}}"
+                class="rounded-circle"
+              />
+            </center>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        {{#if this.isStatus}}
+        {{else}}
+        <input type="text" name="isVoid" id="input{{this._id}}" value="{{this.isVoid}}" required hidden/>
+        <input type="button" class="btn btn-danger" data-dismiss="modal" onclick="$('#input{{this._id}}').val('true');Swal.fire({title: 'Are you sure you want to delete this payment?',showDenyButton: false,showCancelButton: true,icon: 'warning',confirmButtonText: 'Delete',confirmButtonColor: '#d33',}).then((result) => {if (result.isConfirmed) {$('#deleteBtn{{this._id}}').trigger('click');} else {$('#input{{this._id}}').val('false');}})" value="Delete"/>
+        <button type="submit" class="btn btn-primary" id="deleteBtn{{this._id}}" hidden>Submit</button>
+        {{/if}}
+      </div>
+      {{#if this.isStatus}}
+      {{else}}
+      </form>
+      {{/if}}
+  
+    </div>
+  </div>
+</div>
+{{/if}}
+{{/each}}
+
+<!-- SCRIPT -->
+<!-- SEARCH DATE -->
+<script>
+  function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchPayed");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("payedTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+</script>
+
+<!-- UPLAOD Image -->
+<script>
+  /*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#imageResult").attr("src", e.target.result);
+        $("#imgdatainput").val(e.target.result);
+        $("#saveBtn").prop("disabled", false);
+        $("#saveBtn").prop("hidden", false);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(function () {
+    $("#upload").on("change", function () {
+      readURL(input);
+    });
+  });
+
+  /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+  var input = document.getElementById("upload");
+  var infoArea = document.getElementById("upload-label");
+
+  input.addEventListener("change", showFileName);
+  function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    infoArea.textContent = "File name: " + fileName;
+  }
+
+  $("form").submit(function () {
+    $(this).find("button[type=submit]").prop("disabled", true);
+    $(this).find("button[type=submit]").text("Loading ...");
+  });
+</script>
+
+<script>
+  function getBranch(myBranchID, myCollector) {
+    let displayBranch = String('#'+myBranchID);
+    let displayCollector = String('#'+myCollector);
+    if (displayBranch !== '') {
+       $.ajax({
+         url: '{{baseURL}}/getCollector/' + $(displayBranch).val(),
+         type: 'GET',
+         success: function (result) {
+           $(displayCollector)
+             .find('option')
+             .remove()
+             .end()
+             .append(
+               $('<option>', {
+                 value: '',
+                 text: '',
+               })
+             );
+
+           Array.prototype.forEach.call(result, (data) => {
+             $(displayCollector).append(
+               $('<option>', {
+                 value: data.collector_id,
+                 text: data.fullname,
+               })
+             );
+           });
+
+           $(displayCollector).val('{{data.collector_id}}').change();
+         },
+       }).error(function (res) {
+         $.confirm({
+           title: 'Encountered an error!',
+           content: 'Please check your internet connection!',
+           type: 'red',
+           typeAnimated: true,
+           buttons: {
+             close: function () {},
+           },
+         });
+       });
+     } else {
+       $(displayCollector)
+         .find('option')
+         .remove()
+         .end()
+         .append(
+           $('<option>', {
+             value: '',
+             text: '',
+           })
+         );
+     }
+  }
+
+</script>

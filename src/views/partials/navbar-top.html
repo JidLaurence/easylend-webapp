@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light pb-2 {{#if landing}}{{else}}hide-div{{/if}}" style="background-color: #6C63FF !important; padding: 7vh 10vw 0 10vw">
+    <a class="navbar-brand f-white fw-bold f-16" href="/">
+        <img src="../assets/img/brand/favicon-white.png"> Easylend</a>
+    <button class="navbar-toggler" style="background-color: white;" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+          <span class="navbar-text">
+            <ul class="navbar-nav ">
+                <li class="nav-item active">
+                  <a class="nav-link f-white" href="/landing">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link f-white" href="{{#if landing}}#aboutus{{else}}/landing{{/if}}">About us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link f-white" href="/contactus">Contact us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link f-white" href="{{#if landing}}#pricing{{else}}/landing{{/if}}">Pricing</a>
+                  </li>
+                <li class="nav-item dropdown">
+                    <a href="/login"><button type="button" class="btn btn-light pt-1 pb-1 pr-4 pl-4 custom-btn-light">Sign in</button></a>
+                </li>
+              </ul>
+          </span>
+    </div>
+  </nav>

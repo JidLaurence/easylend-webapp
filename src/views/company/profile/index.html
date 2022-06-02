@@ -1,0 +1,379 @@
+<div class="custome-background-all">
+  {{#if credentials.isUpdated}}
+  {{> company-sidenav-customize}}
+  {{/if}}
+  <div class="main-content pl-5" id="panel">
+    
+    <!-- Header -->
+    <div class="header bg-primary pb-6 d-flex align-items-center">
+      <!-- Mask -->
+      <span class="mask  opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row pt-5">
+          <div class="col-lg-12">
+            <h1 class="display-2 text-white">Hello {{toUpper credentials.firstname}} {{middleInitials credentials.middlename}} {{toUpper credentials.lastname}}</h1>
+          </div>
+          <div class="col-lg-6 col-md-10">
+            <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your
+              work and manage your projects or assigned tasks</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2">
+          <div class="card card-profile">
+            <img src="../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#" data-toggle="modal" onclick="$('#update-profilePic').modal()">
+                    <img src="{{credentials.profile_img}}" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+              </div>
+            </div>
+            <div class="card-body pt-4">
+              <div class="text-center">
+                <h5 class="h3">
+                  {{toUpper credentials.firstname}} {{middleInitials credentials.middlename}} {{toUpper credentials.lastname}}<span class="font-weight-light"> {{age credentials.birthday}}</span>
+                </h5>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>{{credentials.barangay}} {{credentials.city}} {{credentials.province}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card">
+            <form method="POST" action="/company/profile/update">
+              <div class="card-header">
+                <div class="row align-items-center">
+                  <div class="col-12 mb-3">
+                    {{#if newMessage}}
+                    <div class="alert alert-{{newAlertType}} alert-dismissible fade show m-0 rounded-0" role="alert">
+                      <strong>{{newMessage}}</strong>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {{/if}}
+                  </div>
+                  <div class="col-12">
+                    <h3 class="mb-0">Edit profile </h3>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Email address</label>
+                        <input type="text" class="form-control" value="{{credentials.email}}" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Company name</label>
+                        <input type="text" name="company_name" class="form-control" value="{{credentials.company_name}}"
+                          {{#if credentials.validate_account}}disabled{{/if}} required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Phone number</label>
+                        <input type="number" name="phone_number" class="form-control"
+                          value="{{credentials.phone_number}}" {{#if credentials.validate_account}}disabled{{/if}}
+                          required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Birthday</label>
+                        <input type="date" name="birthday" class="form-control" value="{{credentials.birthday}}" {{#if
+                          credentials.validate_account}}disabled{{/if}} required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">First name</label>
+                        <input type="text" name="firstname" class="form-control" value="{{credentials.firstname}}" {{#if
+                          credentials.validate_account}}disabled{{/if}} required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Middle name</label>
+                        <input type="text" name="middlename" class="form-control" value="{{credentials.middlename}}"
+                          {{#if credentials.validate_account}}disabled{{/if}}>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Last name</label>
+                        <input type="text" name="lastname" class="form-control" value="{{credentials.lastname}}" {{#if
+                          credentials.validate_account}}disabled{{/if}} required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Region</label>
+                        <input name="region_name"  type="text" class="form-control" value="{{credentials.region}}" id="regionName" required readonly="readonly">
+                        <input type="text" class="form-control" placeholder="Select Region"
+                          id="region_name"  hidden/>
+                        <br />
+                        <select name="region" class="form-control" id="region" ></select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Province</label>
+                        <input name="province_name" type="text" class="form-control" value="{{credentials.province}}" id="provinceName" required readonly="readonly">
+                        <input type="text" class="form-control" placeholder="Select Province"
+                          id="province_name" hidden />
+                        <br />
+                        <select name="province" class="form-control" id="province"></select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">City</label>
+                        <input name="city_name" type="text" class="form-control" value="{{credentials.city}}" id="cityName" required readonly="readonly">
+                        <input type="text" class="form-control" placeholder="Select City"
+                          id="city_name" hidden />
+                        <br />
+                        <select name="city" class="form-control" id="city"></select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">Barangay</label>
+                        <input name="barangay_name"  type="text" class="form-control" value="{{credentials.barangay}}" id="barangayName" required readonly="readonly">
+                        <input type="text" class="form-control" placeholder="Select Barangay" 
+                          id="barangay_name" hidden />
+                        <br />
+                        <select name="barangay" class="form-control" id="barangay"></select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Complete address</label>
+                        <input name="address" class="form-control"
+                          value="{{credentials.address}}" type="text" {{#if
+                          credentials.validate_account}}disabled{{/if}} required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                      {{#if credentials.validate_account}} {{else}}
+                      <button type="submit"class="btn btn-primary">Update profile</button>{{/if}}
+                    </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1"
+                target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADD COMPANY -->
+<div class="modal fade" id="add-company" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Company</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pb-0 pt-0">
+        <input name="code" type="text" class="form-control mb-2" placeholder="Code">
+        <span class="f-12 f-gray">input company code</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal UPDATE PROFILE -->
+<div class="modal fade bd-example-modal-lg" id="update-profilePic" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Change profile picture</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/company/profile/change-img" method="POST"  enctype="multipart/form-data">
+        <div class="modal-body pb-0 pt-0">
+          <center>
+            <img
+              class="img-fluid"
+              id="imageResult"
+              src="{{credentials.profile_img}}"
+              class="rounded-circle"
+            />
+          </center>
+          <input
+              id="upload"
+              name="image"
+              type="file"
+              accept=".jpg,.jpeg"
+              onchange="readURL(this);"
+              class="form-control border-0"
+              required
+          />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- UPLAOD Image -->
+<script>
+  /*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#imageResult").attr("src", e.target.result);
+        $("#imgdatainput").val(e.target.result);
+        $("#saveBtn").prop("disabled", false);
+        $("#saveBtn").prop("hidden", false);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(function () {
+    $("#upload").on("change", function () {
+      readURL(input);
+    });
+  });
+
+  /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+  var input = document.getElementById("upload");
+  var infoArea = document.getElementById("upload-label");
+
+  input.addEventListener("change", showFileName);
+  function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    infoArea.textContent = "File name: " + fileName;
+  }
+
+  $("form").submit(function () {
+    $(this).find("button[type=submit]").prop("disabled", true);
+    $(this).find("button[type=submit]").text("Loading ...");
+  });
+</script>
+
+<script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+  });
+</script>
+
+<script>
+  jQuery(document).ready(function ($) {
+    $(".clickable-row").click(function () {
+      window.location = $(this).data("href");
+    });
+  });
+</script>
+<!-- Home Address -->
+<script type="text/javascript">
+  var my_handlers = {
+    fill_provinces: function () {
+      $('#btn-save').prop('disabled', true);
+      var region_code = $(this).val();
+      $('#region_name').val($(this).find(':selected').text());
+      $('#regionName').val($(this).find(':selected').text());
+
+      $('#province').ph_locations('fetch_list', [{ region_code: region_code }]);
+    },
+
+    fill_cities: function () {
+      var province_code = $(this).val();
+      $('#province_name').val($(this).find(':selected').text());
+      $('#provinceName').val($(this).find(':selected').text());
+      $('#city').ph_locations('fetch_list', [{ province_code: province_code }]);
+    },
+
+    fill_barangays: function () {
+      var city_code = $(this).val();
+      $('#city_name').val($(this).find(':selected').text());
+      $('#cityName').val($(this).find(':selected').text());
+      $('#barangay').ph_locations('fetch_list', [{ city_code: city_code }]);
+    },
+    set_barangays: function () {
+      var city_code = $(this).val();
+      $('#barangay_name').val($(this).find(':selected').text());
+      $('#barangayName').val($(this).find(':selected').text());
+    },
+  };
+
+  $(function () {
+    $('#region').on('change', my_handlers.fill_provinces);
+    $('#province').on('change', my_handlers.fill_cities);
+    $('#city').on('change', my_handlers.fill_barangays);
+    $('#barangay').on('change', my_handlers.set_barangays);
+
+    $('#region').ph_locations({ location_type: 'regions' });
+    $('#province').ph_locations({ location_type: 'provinces' });
+    $('#city').ph_locations({ location_type: 'cities' });
+    $('#barangay').ph_locations({ location_type: 'barangays' });
+
+    $('#region').ph_locations('fetch_list');
+  });
+</script>

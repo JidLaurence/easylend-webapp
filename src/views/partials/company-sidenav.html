@@ -1,0 +1,91 @@
+<!-- Sidenav -->
+<nav
+  class="
+    sidenav
+    navbar navbar-vertical
+    fixed-left
+    navbar-expand-xs navbar-light
+    bg-white
+  "
+  id="sidenav-main"
+>
+  <div class="scrollbar-inner">
+    <!-- Brand -->
+    <div class="sidenav-header align-items-center">
+      <a class="navbar-brand" href="javascript:void(0)">
+        <img
+          src="/assets/img/brand/violet.png"
+          class="navbar-brand-img"
+          alt="..."
+        />
+      </a>
+    </div>
+    <div class="navbar-inner">
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Nav items -->
+        <ul class="navbar-nav">
+          <li class="nav-item d-xl-none">
+            <!-- Sidenav toggler -->
+            <div
+              class="pr-3 sidenav-toggler sidenav-toggler-dark active"
+              data-action="sidenav-pin"
+              data-target="#sidenav-main"
+            >
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link {{#if dashboard}}active{{/if}}"
+              href="/company/dashboard"
+            >
+              <i class="ni ni-tv-2 text-primary"></i>
+              <span class="nav-link-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link {{#if customer}}active{{/if}}"
+              href="/company/customer"
+            >
+              <i class="ni ni-single-02 text-primary"></i>
+              <span class="nav-link-text">Applying Customer</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link {{#if collect}}active{{/if}}"
+              href="/company/collect"
+            >
+              <i class="ni ni-archive-2 text-primary"></i>
+              <span class="nav-link-text">Collect</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link {{#if release}}active{{/if}}"
+              href="/company/release"
+            >
+              <i class="ni ni-single-copy-04 text-primary"></i>
+              <span class="nav-link-text">Release</span>
+            </a>
+          </li>
+        </ul>
+         <!-- Navigation -->
+         <ul class="navbar-nav mb-md-3">
+          <li class="nav-item">
+            <a class="nav-link active active-pro" href="/company/settings">
+              <i class="ni ni-settings text-dark"></i>
+              <span class="nav-link-text">Settings</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

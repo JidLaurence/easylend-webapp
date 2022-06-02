@@ -1,0 +1,370 @@
+<div class="custome-background-all">
+  {{> admin-sidenav dashboard=true}}
+  <div class="main-content" id="panel">
+
+    {{> admin-topnav}}
+    <!-- Page content -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                  <li class="breadcrumb-item"><a href="/admin/dashboard">Company</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Selected</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Total Customer
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{cntTotalCustomer}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-single-02"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Employee
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{staffsCnt}}</span>
+                    </div>
+                    <divni-circle-08 class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-green
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-single-02"></i>
+                      </div>
+                    </divni-circle-08>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Date started
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{convertDate company.expiry_start 'MMMM DD, YYYY'}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-red
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-time-alarm"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">
+                        Date end
+                      </h5>
+                      <span class="h2 font-weight-bold mb-0">{{convertDate company.expiry_end 'MMMM DD, YYYY'}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div
+                        class="
+                          icon icon-shape
+                          bg-gradient-red
+                          text-white
+                          rounded-circle
+                          shadow
+                        "
+                      >
+                        <i class="ni ni-time-alarm"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-8" style="min-height: 60vh;">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Payment</h3>
+                </div>
+                <div class="col text-right">
+                  <div class="col">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update-company">Update Company</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">
+                      <center>
+                        <h4><i class="ni ni-settings-gear-65"></i></h4>
+                      </center>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each total_customers}}
+                  <tr>
+                    <th scope="row">
+                      {{this.year}} {{convertMonth this.month}}
+                    </th>
+                    <td>
+                      {{this.total}}
+                    </td>
+                    <td>
+                      {{this.payment}}
+                    </td>
+                    <td>
+                      {{multiply this.total this.payment}} 
+                    </td>
+                    <td>
+                      {{#if this.isPaid}}
+                        <span class="badge badge-dot"><i class="bg-success"></i>Paid</span>
+                      {{else}}
+                      <span class="badge badge-dot"><i class="bg-danger"></i>Pending</span>
+                      {{/if}}
+                    </td>
+                    <td>
+                      <center>
+                        {{#if this.isPaid}}
+                        {{else}}
+                        <button class="btn"  data-toggle="modal" data-target="#pay-{{this._id}}"><i class="ni ni-check-bold text-success"></i></button>
+                        {{/if}}
+                      </center>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card pt-2">
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Company name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      {{company.company_name}}
+                  </th>
+                </tbody>
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Owner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      {{toUpper company.firstname}}  {{middleInitials company.middlename}}  {{toUpper company.lastname}}
+                  </th>
+                </tbody>
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      {{company.email}}
+                  </th>
+                </tbody>
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Contact Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      {{company.phone_number}}
+                  </th>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2021 <a href="#" class="font-weight-bold ml-1" target="_blank">Start-up</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>  
+</div>
+
+<!-- MODAL UPDATE COMPANY -->
+{{#each total_customers}}
+<div class="modal fade" id="pay-{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="/admin/dashboard/checkout" method="POST">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body pb-0 pt-0">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th>
+                  <h5>Date: <b> {{convertMonth this.month}} {{this.year}}</b></h5>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <h5>Total Customer: <b>{{this.total}}</b></h5>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <h4>Total Payment: <b id="totalPayment">{{multiply this.total this.payment}}</b></h4>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pl-2 pr-2">
+            <input name="company_id" type="text" value="{{company._id}}" hidden/>
+            <input name="_id" type="text" value="{{this._id}}" hidden/>
+            <input name="total" type="text" value="{{this.total}}" hidden/>
+            <small>Payment per Customer</small>
+            <input name="payment" type="text" class="form-control mt-1 mb-4" value="{{this.payment}}" id="pay{{this._id}}" onkeyup="$('#totalPayment').text($('#pay{{this._id}}').val()*parseInt('{{this.total}}'))">
+            <small>Payment Received</small>
+            <input name="payment_received" type="text" class="form-control"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Checkout</button>
+        </div>
+      </div>
+    </form>
+   
+  </div>
+</div>
+{{/each}}
+
+<!-- UPDATE COMPANY -->
+<div class="modal fade" id="update-company" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/admin/dashboard/expiration" method="POST">
+        <div class="modal-body pt-0">
+          <small>Company name</small>
+          <input type="text" value="{{company.company_name}}" class="form-control mb-2" disabled/>
+          <small>Date Expire</small>
+          <input name="date_expire" type="date" value="{{moment company.expiry_end 'yyyy-MM-DD'}}" class="form-control"/>
+          <input name="company_id" type="text" value="{{company._id}}" hidden/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Update Expiration</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+            
+
+
+<script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+  });
+</script>
+
